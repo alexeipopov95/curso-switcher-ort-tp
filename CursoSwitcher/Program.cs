@@ -1,7 +1,11 @@
+using CursoSwitcher.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+/* https://stackoverflow.com/questions/36488461/sqlite-in-asp-net-core-with-entityframeworkcore */
+builder.Services.AddEntityFrameworkSqlite().AddDbContext<ModelContextManager>();
 
 var app = builder.Build();
 
