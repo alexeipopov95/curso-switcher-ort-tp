@@ -4,7 +4,7 @@
 
 namespace CursoSwitcher.Migrations
 {
-    public partial class SecconCreate : Migration
+    public partial class Second : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

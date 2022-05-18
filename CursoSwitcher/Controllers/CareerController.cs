@@ -9,87 +9,87 @@ using CursoSwitcher.Models;
 
 namespace CursoSwitcher.Controllers
 {
-    public class CoursesController : Controller
+    public class CareerController : Controller
     {
         private readonly ModelContextManager _context;
 
-        public CoursesController(ModelContextManager context)
+        public CareerController(ModelContextManager context)
         {
             _context = context;
         }
 
-        // GET: Courses
+        // GET: Career
         public async Task<IActionResult> Index()
         {
-              return _context.Courses != null ? 
-                          View(await _context.Courses.ToListAsync()) :
-                          Problem("Entity set 'ModelContextManager.Courses'  is null.");
+              return _context.Careers != null ? 
+                          View(await _context.Careers.ToListAsync()) :
+                          Problem("Entity set 'ModelContextManager.Careers'  is null.");
         }
 
-        // GET: Courses/Details/5
+        // GET: Career/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Careers == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses
+            var careerModel = await _context.Careers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (coursesModel == null)
+            if (careerModel == null)
             {
                 return NotFound();
             }
 
-            return View(coursesModel);
+            return View(careerModel);
         }
 
-        // GET: Courses/Create
+        // GET: Career/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Courses/Create
+        // POST: Career/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] CoursesModel coursesModel)
+        public async Task<IActionResult> Create([Bind("Id,Name")] CareerModel careerModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(coursesModel);
+                _context.Add(careerModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(coursesModel);
+            return View(careerModel);
         }
 
-        // GET: Courses/Edit/5
+        // GET: Career/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Careers == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses.FindAsync(id);
-            if (coursesModel == null)
+            var careerModel = await _context.Careers.FindAsync(id);
+            if (careerModel == null)
             {
                 return NotFound();
             }
-            return View(coursesModel);
+            return View(careerModel);
         }
 
-        // POST: Courses/Edit/5
+        // POST: Career/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] CoursesModel coursesModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] CareerModel careerModel)
         {
-            if (id != coursesModel.Id)
+            if (id != careerModel.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace CursoSwitcher.Controllers
             {
                 try
                 {
-                    _context.Update(coursesModel);
+                    _context.Update(careerModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CoursesModelExists(coursesModel.Id))
+                    if (!CareerModelExists(careerModel.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +114,49 @@ namespace CursoSwitcher.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(coursesModel);
+            return View(careerModel);
         }
 
-        // GET: Courses/Delete/5
+        // GET: Career/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Careers == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses
+            var careerModel = await _context.Careers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (coursesModel == null)
+            if (careerModel == null)
             {
                 return NotFound();
             }
 
-            return View(coursesModel);
+            return View(careerModel);
         }
 
-        // POST: Courses/Delete/5
+        // POST: Career/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Courses == null)
+            if (_context.Careers == null)
             {
-                return Problem("Entity set 'ModelContextManager.Courses'  is null.");
+                return Problem("Entity set 'ModelContextManager.Careers'  is null.");
             }
-            var coursesModel = await _context.Courses.FindAsync(id);
-            if (coursesModel != null)
+            var careerModel = await _context.Careers.FindAsync(id);
+            if (careerModel != null)
             {
-                _context.Courses.Remove(coursesModel);
+                _context.Careers.Remove(careerModel);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CoursesModelExists(int id)
+        private bool CareerModelExists(int id)
         {
-          return (_context.Courses?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Careers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

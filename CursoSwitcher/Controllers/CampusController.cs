@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,85 +9,87 @@ using CursoSwitcher.Models;
 
 namespace CursoSwitcher.Controllers
 {
-    public class StudentsController : Controller
+    public class CampusController : Controller
     {
         private readonly ModelContextManager _context;
 
-        public StudentsController(ModelContextManager context)
+        public CampusController(ModelContextManager context)
         {
             _context = context;
         }
 
-        // GET: Students
+        // GET: Campus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Students.ToListAsync());
+              return _context.Campus != null ? 
+                          View(await _context.Campus.ToListAsync()) :
+                          Problem("Entity set 'ModelContextManager.Campus'  is null.");
         }
 
-        // GET: Students/Details/5
+        // GET: Campus/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var studentModel = await _context.Students
+            var campusModel = await _context.Campus
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (studentModel == null)
+            if (campusModel == null)
             {
                 return NotFound();
             }
 
-            return View(studentModel);
+            return View(campusModel);
         }
 
-        // GET: Students/Create
+        // GET: Campus/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Students/Create
+        // POST: Campus/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,LastName,Email")] StudentModel studentModel)
+        public async Task<IActionResult> Create([Bind("Id,Name")] CampusModel campusModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(studentModel);
+                _context.Add(campusModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(studentModel);
+            return View(campusModel);
         }
 
-        // GET: Students/Edit/5
+        // GET: Campus/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var studentModel = await _context.Students.FindAsync(id);
-            if (studentModel == null)
+            var campusModel = await _context.Campus.FindAsync(id);
+            if (campusModel == null)
             {
                 return NotFound();
             }
-            return View(studentModel);
+            return View(campusModel);
         }
 
-        // POST: Students/Edit/5
+        // POST: Campus/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,LastName,Email")] StudentModel studentModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] CampusModel campusModel)
         {
-            if (id != studentModel.Id)
+            if (id != campusModel.Id)
             {
                 return NotFound();
             }
@@ -97,12 +98,13 @@ namespace CursoSwitcher.Controllers
             {
                 try
                 {
-                    _context.Update(studentModel);
+                    campusModel.Updated_at = DateTime.Now;
+                    _context.Update(campusModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentModelExists(studentModel.Id))
+                    if (!CampusModelExists(campusModel.Id))
                     {
                         return NotFound();
                     }
@@ -113,41 +115,49 @@ namespace CursoSwitcher.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(studentModel);
+            return View(campusModel);
         }
 
-        // GET: Students/Delete/5
+        // GET: Campus/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var studentModel = await _context.Students
+            var campusModel = await _context.Campus
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (studentModel == null)
+            if (campusModel == null)
             {
                 return NotFound();
             }
 
-            return View(studentModel);
+            return View(campusModel);
         }
 
-        // POST: Students/Delete/5
+        // POST: Campus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var studentModel = await _context.Students.FindAsync(id);
-            _context.Students.Remove(studentModel);
+            if (_context.Campus == null)
+            {
+                return Problem("Entity set 'ModelContextManager.Campus'  is null.");
+            }
+            var campusModel = await _context.Campus.FindAsync(id);
+            if (campusModel != null)
+            {
+                _context.Campus.Remove(campusModel);
+            }
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentModelExists(int id)
+        private bool CampusModelExists(int id)
         {
-            return _context.Students.Any(e => e.Id == id);
+          return (_context.Campus?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
