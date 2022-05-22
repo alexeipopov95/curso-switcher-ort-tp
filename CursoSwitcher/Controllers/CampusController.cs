@@ -55,7 +55,7 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] CampusModel campusModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Visible_id,Created_at,Updated_at")] CampusModel campusModel)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] CampusModel campusModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Visible_id,Created_at,Updated_at")] CampusModel campusModel)
         {
             if (id != campusModel.Id)
             {
@@ -98,7 +98,6 @@ namespace CursoSwitcher.Controllers
             {
                 try
                 {
-                    campusModel.Updated_at = DateTime.Now;
                     _context.Update(campusModel);
                     await _context.SaveChangesAsync();
                 }

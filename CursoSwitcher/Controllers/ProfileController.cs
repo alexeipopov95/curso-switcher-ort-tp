@@ -9,90 +9,94 @@ using CursoSwitcher.Models;
 
 namespace CursoSwitcher.Controllers
 {
-    public class CoursesController : Controller
+    public class ProfileController : Controller
     {
         private readonly ModelContextManager _context;
 
-        public CoursesController(ModelContextManager context)
+        public ProfileController(ModelContextManager context)
         {
             _context = context;
         }
 
-        // GET: Courses
+        // GET: Profile
         public async Task<IActionResult> Index()
         {
-            var modelContextManager = _context.Courses.Include(c => c.Career);
+            var modelContextManager = _context.Profiles.Include(p => p.Campus).Include(p => p.Career);
             return View(await modelContextManager.ToListAsync());
         }
 
-        // GET: Courses/Details/5
+        // GET: Profile/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Profiles == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses
-                .Include(c => c.Career)
+            var profileModel = await _context.Profiles
+                .Include(p => p.Campus)
+                .Include(p => p.Career)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (coursesModel == null)
+            if (profileModel == null)
             {
                 return NotFound();
             }
 
-            return View(coursesModel);
+            return View(profileModel);
         }
 
-        // GET: Courses/Create
+        // GET: Profile/Create
         public IActionResult Create()
         {
+            ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name");
             ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name");
             return View();
         }
 
-        // POST: Courses/Create
+        // POST: Profile/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CareerId,Visible_id,Created_at,Updated_at")] CoursesModel coursesModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Last_name,Dni,Password,Email,Is_moderator,CareerId,CampusId,Visible_id,Created_at,Updated_at")] ProfileModel profileModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(coursesModel);
+                _context.Add(profileModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", coursesModel.CareerId);
-            return View(coursesModel);
+            ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name", profileModel.CampusId);
+            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", profileModel.CareerId);
+            return View(profileModel);
         }
 
-        // GET: Courses/Edit/5
+        // GET: Profile/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Profiles == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses.FindAsync(id);
-            if (coursesModel == null)
+            var profileModel = await _context.Profiles.FindAsync(id);
+            if (profileModel == null)
             {
                 return NotFound();
             }
-            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", coursesModel.CareerId);
-            return View(coursesModel);
+            ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name", profileModel.CampusId);
+            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", profileModel.CareerId);
+            return View(profileModel);
         }
 
-        // POST: Courses/Edit/5
+        // POST: Profile/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CareerId,Visible_id,Created_at,Updated_at")] CoursesModel coursesModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Last_name,Dni,Password,Email,Is_moderator,CareerId,CampusId,Visible_id,Created_at,Updated_at")] ProfileModel profileModel)
         {
-            if (id != coursesModel.Id)
+            if (id != profileModel.Id)
             {
                 return NotFound();
             }
@@ -101,12 +105,12 @@ namespace CursoSwitcher.Controllers
             {
                 try
                 {
-                    _context.Update(coursesModel);
+                    _context.Update(profileModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CoursesModelExists(coursesModel.Id))
+                    if (!ProfileModelExists(profileModel.Id))
                     {
                         return NotFound();
                     }
@@ -117,51 +121,53 @@ namespace CursoSwitcher.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", coursesModel.CareerId);
-            return View(coursesModel);
+            ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name", profileModel.CampusId);
+            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", profileModel.CareerId);
+            return View(profileModel);
         }
 
-        // GET: Courses/Delete/5
+        // GET: Profile/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Profiles == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses
-                .Include(c => c.Career)
+            var profileModel = await _context.Profiles
+                .Include(p => p.Campus)
+                .Include(p => p.Career)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (coursesModel == null)
+            if (profileModel == null)
             {
                 return NotFound();
             }
 
-            return View(coursesModel);
+            return View(profileModel);
         }
 
-        // POST: Courses/Delete/5
+        // POST: Profile/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Courses == null)
+            if (_context.Profiles == null)
             {
-                return Problem("Entity set 'ModelContextManager.Courses'  is null.");
+                return Problem("Entity set 'ModelContextManager.Profiles'  is null.");
             }
-            var coursesModel = await _context.Courses.FindAsync(id);
-            if (coursesModel != null)
+            var profileModel = await _context.Profiles.FindAsync(id);
+            if (profileModel != null)
             {
-                _context.Courses.Remove(coursesModel);
+                _context.Profiles.Remove(profileModel);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CoursesModelExists(int id)
+        private bool ProfileModelExists(int id)
         {
-          return (_context.Courses?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Profiles?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CursoSwitcher.Migrations
 {
-    public partial class Init : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace CursoSwitcher.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
                     Visible_id = table.Column<string>(type: "TEXT", nullable: false),
                     Created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Updated_at = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -31,7 +32,8 @@ namespace CursoSwitcher.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
                     Visible_id = table.Column<string>(type: "TEXT", nullable: false),
                     Created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Updated_at = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -47,7 +49,9 @@ namespace CursoSwitcher.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    CareerId = table.Column<int>(type: "INTEGER", nullable: false),
                     Visible_id = table.Column<string>(type: "TEXT", nullable: false),
                     Created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Updated_at = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -55,6 +59,12 @@ namespace CursoSwitcher.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_Careers_CareerId",
+                        column: x => x.CareerId,
+                        principalTable: "Careers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,10 +79,8 @@ namespace CursoSwitcher.Migrations
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Is_moderator = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IdCareer = table.Column<int>(type: "INTEGER", nullable: false),
                     CareerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IdCourse = table.Column<int>(type: "INTEGER", nullable: false),
-                    coursesId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CampusId = table.Column<int>(type: "INTEGER", nullable: false),
                     Visible_id = table.Column<string>(type: "TEXT", nullable: false),
                     Created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Updated_at = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -81,17 +89,65 @@ namespace CursoSwitcher.Migrations
                 {
                     table.PrimaryKey("PK_Profiles", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Profiles_Campus_CampusId",
+                        column: x => x.CampusId,
+                        principalTable: "Campus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Profiles_Careers_CareerId",
                         column: x => x.CareerId,
                         principalTable: "Careers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CoursesModelProfileModel",
+                columns: table => new
+                {
+                    CoursesId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProfilesId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoursesModelProfileModel", x => new { x.CoursesId, x.ProfilesId });
                     table.ForeignKey(
-                        name: "FK_Profiles_Courses_coursesId",
-                        column: x => x.coursesId,
+                        name: "FK_CoursesModelProfileModel_Courses_CoursesId",
+                        column: x => x.CoursesId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CoursesModelProfileModel_Profiles_ProfilesId",
+                        column: x => x.ProfilesId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProfileCourses",
+                columns: table => new
+                {
+                    ProfileId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CourseId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProfilesId = table.Column<int>(type: "INTEGER", nullable: true),
+                    CoursesId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProfileCourses", x => new { x.ProfileId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_ProfileCourses_Courses_CoursesId",
+                        column: x => x.CoursesId,
+                        principalTable: "Courses",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProfileCourses_Profiles_ProfilesId",
+                        column: x => x.ProfilesId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -100,11 +156,8 @@ namespace CursoSwitcher.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    IdProfile = table.Column<int>(type: "INTEGER", nullable: false),
                     ProfileId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IdRequestedCoursed = table.Column<int>(type: "INTEGER", nullable: false),
                     RequestedCourseId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IdOfferedCourse = table.Column<int>(type: "INTEGER", nullable: false),
                     OfferedCourseId = table.Column<int>(type: "INTEGER", nullable: false),
                     status = table.Column<string>(type: "TEXT", nullable: false),
                     Visible_id = table.Column<string>(type: "TEXT", nullable: false),
@@ -135,14 +188,34 @@ namespace CursoSwitcher.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_CareerId",
-                table: "Profiles",
+                name: "IX_Courses_CareerId",
+                table: "Courses",
                 column: "CareerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_coursesId",
+                name: "IX_CoursesModelProfileModel_ProfilesId",
+                table: "CoursesModelProfileModel",
+                column: "ProfilesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProfileCourses_CoursesId",
+                table: "ProfileCourses",
+                column: "CoursesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProfileCourses_ProfilesId",
+                table: "ProfileCourses",
+                column: "ProfilesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Profiles_CampusId",
                 table: "Profiles",
-                column: "coursesId");
+                column: "CampusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Profiles_CareerId",
+                table: "Profiles",
+                column: "CareerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_OfferedCourseId",
@@ -163,19 +236,25 @@ namespace CursoSwitcher.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Campus");
+                name: "CoursesModelProfileModel");
+
+            migrationBuilder.DropTable(
+                name: "ProfileCourses");
 
             migrationBuilder.DropTable(
                 name: "Requests");
 
             migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
                 name: "Profiles");
 
             migrationBuilder.DropTable(
-                name: "Careers");
+                name: "Campus");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Careers");
         }
     }
 }

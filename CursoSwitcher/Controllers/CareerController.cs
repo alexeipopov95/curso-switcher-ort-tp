@@ -55,7 +55,7 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] CareerModel careerModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Visible_id,Created_at,Updated_at")] CareerModel careerModel)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] CareerModel careerModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Visible_id,Created_at,Updated_at")] CareerModel careerModel)
         {
             if (id != careerModel.Id)
             {
