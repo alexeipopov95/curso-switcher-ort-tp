@@ -25,8 +25,10 @@ namespace CursoSwitcher.Models
         [Display(Name = "Administrador")]
         public bool Is_moderator { get; set; }
 
-        [Display(Name = "Materias")]
-        public IList<CoursesModel>? Courses{ get; set; }
+        public int CourseId { get; set; }
+
+        [Display(Name = "Curso")]
+        public CoursesModel? Course { get; set; }
 
         [Display(Name = "Carrera")]
         [ForeignKey("CareerModel")]

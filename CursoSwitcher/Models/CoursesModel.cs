@@ -15,9 +15,6 @@ namespace CursoSwitcher.Models
         [Display(Name = "Descripción")]
         public string? Description { get; set; }
 
-        [Display(Name = "Alumnos")]
-        public IList<ProfileModel>? Profiles { get; set; }
-
         [ForeignKey("CareerModel")]
         public int CareerId { get; set; }
 

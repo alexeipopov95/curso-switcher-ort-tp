@@ -21,7 +21,7 @@ namespace CursoSwitcher.Controllers
         // GET: Profile
         public async Task<IActionResult> Index()
         {
-            var modelContextManager = _context.Profiles.Include(p => p.Campus).Include(p => p.Career);
+            var modelContextManager = _context.Profiles.Include(p => p.Campus).Include(p => p.Career).Include(p => p.Course);
             return View(await modelContextManager.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace CursoSwitcher.Controllers
             var profileModel = await _context.Profiles
                 .Include(p => p.Campus)
                 .Include(p => p.Career)
+                .Include(p => p.Course)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (profileModel == null)
             {
@@ -50,6 +51,7 @@ namespace CursoSwitcher.Controllers
         {
             ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name");
             ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name");
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name");
             return View();
         }
 
@@ -58,7 +60,7 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Last_name,Dni,Password,Email,Is_moderator,CareerId,CampusId,Visible_id,Created_at,Updated_at")] ProfileModel profileModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Last_name,Dni,Password,Email,Is_moderator,CourseId,CareerId,CampusId,Visible_id,Created_at,Updated_at")] ProfileModel profileModel)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +70,7 @@ namespace CursoSwitcher.Controllers
             }
             ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name", profileModel.CampusId);
             ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", profileModel.CareerId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", profileModel.CourseId);
             return View(profileModel);
         }
 
@@ -86,6 +89,7 @@ namespace CursoSwitcher.Controllers
             }
             ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name", profileModel.CampusId);
             ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", profileModel.CareerId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", profileModel.CourseId);
             return View(profileModel);
         }
 
@@ -94,7 +98,7 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Last_name,Dni,Password,Email,Is_moderator,CareerId,CampusId,Visible_id,Created_at,Updated_at")] ProfileModel profileModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Last_name,Dni,Password,Email,Is_moderator,CourseId,CareerId,CampusId,Visible_id,Created_at,Updated_at")] ProfileModel profileModel)
         {
             if (id != profileModel.Id)
             {
@@ -123,6 +127,7 @@ namespace CursoSwitcher.Controllers
             }
             ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name", profileModel.CampusId);
             ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", profileModel.CareerId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", profileModel.CourseId);
             return View(profileModel);
         }
 
@@ -137,6 +142,7 @@ namespace CursoSwitcher.Controllers
             var profileModel = await _context.Profiles
                 .Include(p => p.Campus)
                 .Include(p => p.Career)
+                .Include(p => p.Course)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (profileModel == null)
             {

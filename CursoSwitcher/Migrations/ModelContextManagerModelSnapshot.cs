@@ -17,21 +17,6 @@ namespace CursoSwitcher.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
 
-            modelBuilder.Entity("CoursesModelProfileModel", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProfilesId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("CoursesId", "ProfilesId");
-
-                    b.HasIndex("ProfilesId");
-
-                    b.ToTable("CoursesModelProfileModel");
-                });
-
             modelBuilder.Entity("CursoSwitcher.Models.CampusModel", b =>
                 {
                     b.Property<int>("Id")
@@ -133,6 +118,9 @@ namespace CursoSwitcher.Migrations
                     b.Property<int>("CareerId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("Created_at")
                         .HasColumnType("TEXT");
 
@@ -172,30 +160,9 @@ namespace CursoSwitcher.Migrations
 
                     b.HasIndex("CareerId");
 
+                    b.HasIndex("CourseId");
+
                     b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("CursoSwitcher.Models.ProfileModelCourseModel", b =>
-                {
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CoursesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ProfilesId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ProfileId", "CourseId");
-
-                    b.HasIndex("CoursesId");
-
-                    b.HasIndex("ProfilesId");
-
-                    b.ToTable("ProfileCourses");
                 });
 
             modelBuilder.Entity("CursoSwitcher.Models.RequestsModel", b =>
@@ -238,21 +205,6 @@ namespace CursoSwitcher.Migrations
                     b.ToTable("Requests");
                 });
 
-            modelBuilder.Entity("CoursesModelProfileModel", b =>
-                {
-                    b.HasOne("CursoSwitcher.Models.CoursesModel", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CursoSwitcher.Models.ProfileModel", null)
-                        .WithMany()
-                        .HasForeignKey("ProfilesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CursoSwitcher.Models.CoursesModel", b =>
                 {
                     b.HasOne("CursoSwitcher.Models.CareerModel", "Career")
@@ -278,24 +230,17 @@ namespace CursoSwitcher.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CursoSwitcher.Models.CoursesModel", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Campus");
 
                     b.Navigation("Career");
-                });
 
-            modelBuilder.Entity("CursoSwitcher.Models.ProfileModelCourseModel", b =>
-                {
-                    b.HasOne("CursoSwitcher.Models.CoursesModel", "Courses")
-                        .WithMany()
-                        .HasForeignKey("CoursesId");
-
-                    b.HasOne("CursoSwitcher.Models.ProfileModel", "Profiles")
-                        .WithMany()
-                        .HasForeignKey("ProfilesId");
-
-                    b.Navigation("Courses");
-
-                    b.Navigation("Profiles");
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("CursoSwitcher.Models.RequestsModel", b =>
