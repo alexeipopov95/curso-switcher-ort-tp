@@ -16,13 +16,18 @@ namespace CursoSwitcher.Models
         public string? Description { get; set; }
 
         [Display(Name = "Alumnos")]
-        public IList<ProfileModel>? Profiles { get; set; }
+        public virtual ICollection<ProfileModel> Profile { get; set; }
 
         [ForeignKey("CareerModel")]
         public int CareerId { get; set; }
 
         [Display(Name = "Carrera")]
         public CareerModel? Career { get; set; }
+
+        public CoursesModel()
+        {
+            this.Profile = new List<ProfileModel>();
+        }
 
     }
 }

@@ -1,4 +1,4 @@
-﻿@model CursoSwitcher.Models.ProfileModelCourseModel
+﻿@model CursoSwitcher.Models.RequestsModel
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>ProfileModelCourseModel</h4>
+<h4>RequestsModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,8 +17,12 @@
                 <select asp-for="ProfileId" class ="form-control" asp-items="ViewBag.ProfileId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
-                <select asp-for="CourseId" class ="form-control" asp-items="ViewBag.CourseId"></select>
+                <label asp-for="RequestedCourseId" class="control-label"></label>
+                <select asp-for="RequestedCourseId" class ="form-control" asp-items="ViewBag.RequestedCourseId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="OfferedCourseId" class="control-label"></label>
+                <select asp-for="OfferedCourseId" class ="form-control" asp-items="ViewBag.OfferedCourseId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

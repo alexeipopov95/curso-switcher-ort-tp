@@ -5,6 +5,7 @@ namespace CursoSwitcher.Models
 {
     public class ProfileModel : CommonModel
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -25,8 +26,7 @@ namespace CursoSwitcher.Models
         [Display(Name = "Administrador")]
         public bool Is_moderator { get; set; }
 
-        [Display(Name = "Materias")]
-        public IList<CoursesModel>? Courses{ get; set; }
+        public virtual ICollection<CoursesModel>? Courses { get; set; }
 
         [Display(Name = "Carrera")]
         [ForeignKey("CareerModel")]
@@ -37,6 +37,11 @@ namespace CursoSwitcher.Models
         [ForeignKey("CampusModel")]
         public int CampusId { get; set; }
         public CampusModel? Campus { get; set; }
+
+        public ProfileModel()
+        {
+            this.Courses= new List<CoursesModel>();
+        }
 
     }
 }
