@@ -1,0 +1,26 @@
+PANTALLAS
+
+- Login
+	Ingrese DNI
+	Ingrese Password
+	Boton Ingresar
+	Leyenda con link "No tengo cuenta. Registrarme"
+
+- Registrarme
+	Ingrese Nombre
+	Ingrese Apellido
+	Ingrese DNI
+	Ingrese Password
+	Ingrese Correo electronico
+	Boton Registrarme
+
+- Pantalla Dashboard
+	if:
+		Si no tiene solicitudes creadas, mostrar mensaje indicandolo, y opcion de crear solicitud nueva
+	else:	
+		Si tiene solicitudes creadas, mostrar en una tabla, su estado e información necesaria.
+
+- Pantalla nueva solicitud:
+	Seleccione su curso (Si esta cargado, ya aparece seleccionado)
+	Seleccione su curso deseado
+	Boton enviar --- mostrar modal con feedback "solicitud de cambio enviada ..."
