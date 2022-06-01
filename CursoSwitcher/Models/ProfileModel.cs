@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CursoSwitcher.Models
@@ -41,4 +42,5 @@ namespace CursoSwitcher.Models
         public CampusModel? Campus { get; set; }
 
     }
+
 }

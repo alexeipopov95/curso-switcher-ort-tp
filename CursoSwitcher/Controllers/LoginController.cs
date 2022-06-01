@@ -6,9 +6,18 @@ namespace CursoSwitcher.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ModelContextManager _context;
+
+        public LoginController(ModelContextManager context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
+            // If user is authenticated and the session persists must redirect to the dashboard.
+            // elif user is not authenticated, must show login page.
             return View();
         }
 
@@ -17,11 +26,12 @@ namespace CursoSwitcher.Controllers
             /*Aqui vamos a hacer las validaciones con relación al usuario si está o no en la base de datos
              y si corresponde redirigirlo al dashboard.*/
             bool loged = false;
-            if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(dni))
-            {
-                if (dni == "123" && password == "123") {
-                    loged = true;
-                }
+
+            var _dni = _context.Profiles.Any(o => o.Dni.Equals(dni));
+            var _pwd = _context.Profiles.Any(o => o.Password.Equals(password));
+
+            if (_dni && _pwd) {
+                loged = true;
             }
             return loged;
         }

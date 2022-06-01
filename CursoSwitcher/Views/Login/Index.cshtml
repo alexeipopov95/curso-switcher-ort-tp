@@ -1,13 +1,41 @@
 ﻿
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+<div class="wrapper fadeInDown">
+    <!--Snippet https://bootsnipp.com/snippets/dldxB Thank you!!-->
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
-<h1>Inicio de sesión</h1>
+    <!-- Icon -->
+    <div class="fadeIn first">
+        <br>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/ORT_Logo.svg/1200px-ORT_Logo.svg.png" id="icon" alt="User Icon" />
+    </div>
 
-<form method="post">
-    <input type="text" name="dni" placeholder="Documento" />
-    <input type="password" name="password" placeholder="Contraseña" />
-    <input type="submit" value="Ingresar" />
-</form>
-<p><a href="">¿No puede acceder?</a></p>
+    <!-- Login Form -->
+    <form method="post">
+      <input type="text" id="login" class="fadeIn second" name="dni" placeholder="Documento">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña">
+      <input type="submit" class="fadeIn fourth" value="Ingresar">
+    </form>
 
-@TempData["Message"]
+    <div id="formFooter">
+      <p><a asp-area="" asp-controller="SignUp" asp-action="Index">¿No tiene cuenta?</a></p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Notificación</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      @TempData["Message"]
+    </div>
+  </div>
+</div>
+
 
