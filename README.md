@@ -1,4 +1,4 @@
-# curso-switcher-ort-tp
+# Course Exchanger
 # Importante...
 ## Base de datos.
 Las migraciones ya vienen en el proyecto, se deberá de ejecutar el comando `update-database` para aplicarlas y de ese modo que se cree un file llamado "database.db" en el root al cual podremos acceder y hacer pruebas.
