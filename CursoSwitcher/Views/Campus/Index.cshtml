@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CursoSwitcher.Models.CoursesModel>
+﻿@model IEnumerable<CursoSwitcher.Models.CampusModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,9 +17,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Career)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Visible_id)
@@ -41,9 +38,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Career.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Visible_id)

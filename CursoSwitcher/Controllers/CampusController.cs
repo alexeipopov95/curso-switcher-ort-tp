@@ -9,90 +9,87 @@ using CursoSwitcher.Models;
 
 namespace CursoSwitcher.Controllers
 {
-    public class CoursesController : Controller
+    public class CampusController : Controller
     {
         private readonly ModelContextManager _context;
 
-        public CoursesController(ModelContextManager context)
+        public CampusController(ModelContextManager context)
         {
             _context = context;
         }
 
-        // GET: Courses
+        // GET: Campus
         public async Task<IActionResult> Index()
         {
-            var modelContextManager = _context.Courses.Include(c => c.Career);
-            return View(await modelContextManager.ToListAsync());
+              return _context.Campus != null ? 
+                          View(await _context.Campus.ToListAsync()) :
+                          Problem("Entity set 'ModelContextManager.Campus'  is null.");
         }
 
-        // GET: Courses/Details/5
+        // GET: Campus/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses
-                .Include(c => c.Career)
+            var campusModel = await _context.Campus
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (coursesModel == null)
+            if (campusModel == null)
             {
                 return NotFound();
             }
 
-            return View(coursesModel);
+            return View(campusModel);
         }
 
-        // GET: Courses/Create
+        // GET: Campus/Create
         public IActionResult Create()
         {
-            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name");
             return View();
         }
 
-        // POST: Courses/Create
+        // POST: Campus/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CareerId,Visible_id,Created_at,Updated_at")] CoursesModel coursesModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Visible_id,Created_at,Updated_at")] CampusModel campusModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(coursesModel);
+                _context.Add(campusModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", coursesModel.CareerId);
-            return View(coursesModel);
+            return View(campusModel);
         }
 
-        // GET: Courses/Edit/5
+        // GET: Campus/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses.FindAsync(id);
-            if (coursesModel == null)
+            var campusModel = await _context.Campus.FindAsync(id);
+            if (campusModel == null)
             {
                 return NotFound();
             }
-            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", coursesModel.CareerId);
-            return View(coursesModel);
+            return View(campusModel);
         }
 
-        // POST: Courses/Edit/5
+        // POST: Campus/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CareerId,Visible_id,Created_at,Updated_at")] CoursesModel coursesModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Visible_id,Created_at,Updated_at")] CampusModel campusModel)
         {
-            if (id != coursesModel.Id)
+            if (id != campusModel.Id)
             {
                 return NotFound();
             }
@@ -101,12 +98,12 @@ namespace CursoSwitcher.Controllers
             {
                 try
                 {
-                    _context.Update(coursesModel);
+                    _context.Update(campusModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CoursesModelExists(coursesModel.Id))
+                    if (!CampusModelExists(campusModel.Id))
                     {
                         return NotFound();
                     }
@@ -117,51 +114,49 @@ namespace CursoSwitcher.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name", coursesModel.CareerId);
-            return View(coursesModel);
+            return View(campusModel);
         }
 
-        // GET: Courses/Delete/5
+        // GET: Campus/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var coursesModel = await _context.Courses
-                .Include(c => c.Career)
+            var campusModel = await _context.Campus
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (coursesModel == null)
+            if (campusModel == null)
             {
                 return NotFound();
             }
 
-            return View(coursesModel);
+            return View(campusModel);
         }
 
-        // POST: Courses/Delete/5
+        // POST: Campus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Courses == null)
+            if (_context.Campus == null)
             {
-                return Problem("Entity set 'ModelContextManager.Courses'  is null.");
+                return Problem("Entity set 'ModelContextManager.Campus'  is null.");
             }
-            var coursesModel = await _context.Courses.FindAsync(id);
-            if (coursesModel != null)
+            var campusModel = await _context.Campus.FindAsync(id);
+            if (campusModel != null)
             {
-                _context.Courses.Remove(coursesModel);
+                _context.Campus.Remove(campusModel);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CoursesModelExists(int id)
+        private bool CampusModelExists(int id)
         {
-          return (_context.Courses?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Campus?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

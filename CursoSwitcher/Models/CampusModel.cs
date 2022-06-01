@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CursoSwitcher.Models
 {
-    public class CoursesModel : CommonModel
+    public class CampusModel : CommonModel // SEDE
     {
         [Key]
         public int Id { get; set; }
@@ -15,11 +14,6 @@ namespace CursoSwitcher.Models
         [Display(Name = "Descripción")]
         public string? Description { get; set; }
 
-        [ForeignKey("CareerModel")]
-        public int CareerId { get; set; }
-
-        [Display(Name = "Carrera")]
-        public CareerModel? Career { get; set; }
-
+        public List<ProfileModel>? Profile { get; set; }
     }
 }
