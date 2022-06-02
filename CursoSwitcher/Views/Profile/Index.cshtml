@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<CursoSwitcher.Models.ProfileModel>
 
 @{
-    ViewData["Title"] = "Index";
+    var TITLE = "Perfiles";
+    ViewData["Title"] = TITLE;
 }
 
-<h1>Index</h1>
+<h1>@TITLE</h1>
 
 <p>
     <a asp-action="Create">Create New</a>

@@ -26,9 +26,8 @@ namespace CursoSwitcher.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index([Bind("Id,Name,Last_name,Dni,Password,Email,CourseId,CareerId,CampusId")] ProfileModel profileModel)
         {
-            var _dni_valid = _context.Profiles.Any(o => o.Dni.Equals(profileModel.Dni));
-            var _email_valid = _context.Profiles.Any(o => o.Email.Equals(profileModel.Email));
-            if (ModelState.IsValid && !_dni_valid && !_email_valid)
+            var _dni_valid = _context.Profiles.Any(o => o.Dni.Equals(profileModel.Dni) && o.Email.Equals(profileModel.Email));
+            if (ModelState.IsValid && !_dni_valid)
             {
                 _context.Add(profileModel);
                 await _context.SaveChangesAsync();
