@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<CursoSwitcher.Models.CampusModel>
 
 @{
-    ViewData["Title"] = "Index";
+    var TITLE = "Sedes";
+    ViewData["Title"] = TITLE;
 }
 
-<h1>Index</h1>
+<h1>@TITLE</h1>
 
 <p>
     <a asp-action="Create">Create New</a>

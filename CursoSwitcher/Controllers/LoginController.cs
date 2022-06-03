@@ -27,10 +27,9 @@ namespace CursoSwitcher.Controllers
              y si corresponde redirigirlo al dashboard.*/
             bool loged = false;
 
-            var _dni = _context.Profiles.Any(o => o.Dni.Equals(dni));
-            var _pwd = _context.Profiles.Any(o => o.Password.Equals(password));
+            var _autenticated = _context.Profiles.Any(o => o.Dni.Equals(dni) && o.Password.Equals(password));
 
-            if (_dni && _pwd) {
+            if (_autenticated) {
                 loged = true;
             }
             return loged;
