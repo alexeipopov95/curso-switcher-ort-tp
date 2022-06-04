@@ -1,0 +1,15 @@
+#navbarOrt {
+    background-color: #024A83;
+}
+
+
+.links {
+    color: #D8D8D8;
+    text-decoration: none;
+}
+    .links:hover {
+        color: white;
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.05);
+        text-decoration: none;
+    }

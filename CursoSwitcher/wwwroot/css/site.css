@@ -16,3 +16,40 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.commonButton {
+    background-color: #024A83;
+    color: whitesmoke;
+    padding: 12px 14px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+ .buttonOrt:hover {
+        transition: all 0.5s ease-in-out;
+        transform: scale(1.05);
+        color: white;
+        
+    }
+
+.buttonOrt {
+    background-color: #024A83;
+    color: whitesmoke;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin: 5px;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+     .commonButton:hover, .buttonOrt:hover {
+        transition: all 0.5s ease-in-out;
+        transform: scale(1.05);
+        color: white;
+        
+    }
