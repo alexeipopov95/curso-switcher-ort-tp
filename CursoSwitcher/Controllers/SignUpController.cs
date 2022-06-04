@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CursoSwitcher.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CursoSwitcher.Controllers
 {
@@ -31,7 +34,7 @@ namespace CursoSwitcher.Controllers
             {
                 _context.Add(profileModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Login");
             }
             ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name");
             ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name");
