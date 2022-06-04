@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CursoSwitcher.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CursoSwitcher.Controllers
 {
@@ -16,21 +19,30 @@ namespace CursoSwitcher.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // If user is authenticated and the session persists must redirect to the dashboard.
-            // elif user is not authenticated, must show login page.
             return View();
+        }
+
+        // Método donde vamos a setear las cookies al momento de iniciar sesión.
+        private ClaimsPrincipal SetCookies(ProfileModel entity)
+        {
+            ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new Claim(ClaimTypes.Name, entity.Name));
+            identity.AddClaim(new Claim(ClaimTypes.Role, entity.Is_moderator ? "ADMIN" : "USER"));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, entity.Id.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.GivenName, entity.Name));
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+            return principal;
         }
 
         private bool UserValidation(String dni, String password)
         {
-            /*Aqui vamos a hacer las validaciones con relación al usuario si está o no en la base de datos
-             y si corresponde redirigirlo al dashboard.*/
             bool loged = false;
+            var user = _context.Profiles.SingleOrDefault(o => o.Dni.Equals(dni) && o.Password.Equals(password));
 
-            var _dni = _context.Profiles.Any(o => o.Dni.Equals(dni));
-            var _pwd = _context.Profiles.Any(o => o.Password.Equals(password));
-
-            if (_dni && _pwd) {
+            if (user != null) {
+                ClaimsPrincipal cookie = SetCookies(user);
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, cookie).Wait();
                 loged = true;
             }
             return loged;
@@ -40,11 +52,9 @@ namespace CursoSwitcher.Controllers
         [HttpPost]
         public IActionResult Index(String dni, String password)
         {
-            Console.WriteLine("Component: {0} Message: {1} ", dni, password);
-
             if (UserValidation(dni, password))
             {
-                TempData["Message"] = "Inicio de sesión correcto."; // Esto estaría bueno mostrarlo en un toast (bootstrap)
+                TempData["Message"] = "Inicio de sesión correcto.";
                 return RedirectToAction("Index", "Dashboard");
             } else
             {
