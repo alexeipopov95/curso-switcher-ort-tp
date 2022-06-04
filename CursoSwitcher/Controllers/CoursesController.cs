@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CursoSwitcher.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CursoSwitcher.Controllers
 {
+    [Authorize(Roles = "ADMIN")]
     public class CoursesController : Controller
     {
         private readonly ModelContextManager _context;

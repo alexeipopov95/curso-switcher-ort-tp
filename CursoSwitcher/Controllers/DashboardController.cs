@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CursoSwitcher.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CursoSwitcher.Controllers
 {
+    [Authorize(Roles = "ADMIN, USER")]
     public class DashboardController : Controller
     {
         private readonly ModelContextManager _context;
@@ -18,10 +17,25 @@ namespace CursoSwitcher.Controllers
             _context = context;
         }
 
+        private int getUserId()
+        {
+            var user_id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return user_id;
+        }
+
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-            var modelContextManager = _context.Requests.Include(r => r.OfferedCourse).Include(r => r.Profile).Include(r => r.RequestedCourse);
+            // Temporal, solo para ver el usuario / sesión.
+            Console.WriteLine("Ingresó el usuario con el ID: {0}",getUserId());
+
+            var modelContextManager = _context
+                .Requests
+                .Where(u => u.ProfileId.Equals(getUserId()))
+                .Include(r => r.OfferedCourse)
+                .Include(r => r.Profile)
+                .Include(r => r.RequestedCourse);
+            Console.WriteLine(modelContextManager);
             return View(await modelContextManager.ToListAsync());
         }
 
@@ -48,9 +62,9 @@ namespace CursoSwitcher.Controllers
 
         // GET: Dashboard/Create
         public IActionResult Create()
-        {
+        {            
             ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id");
+            ViewData["ProfileId"] = getUserId();
             ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
             return View();
         }
@@ -62,6 +76,8 @@ namespace CursoSwitcher.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId,status,Visible_id,Created_at,Updated_at")] RequestsModel requestsModel)
         {
+            Console.WriteLine(requestsModel.Id);
+            Console.WriteLine(requestsModel.ProfileId);
             if (ModelState.IsValid)
             {
                 _context.Add(requestsModel);
@@ -69,64 +85,7 @@ namespace CursoSwitcher.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id", requestsModel.ProfileId);
-            ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.RequestedCourseId);
-            return View(requestsModel);
-        }
-
-        // GET: Dashboard/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Requests == null)
-            {
-                return NotFound();
-            }
-
-            var requestsModel = await _context.Requests.FindAsync(id);
-            if (requestsModel == null)
-            {
-                return NotFound();
-            }
-            ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id", requestsModel.ProfileId);
-            ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.RequestedCourseId);
-            return View(requestsModel);
-        }
-
-        // POST: Dashboard/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId,status,Visible_id,Created_at,Updated_at")] RequestsModel requestsModel)
-        {
-            if (id != requestsModel.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(requestsModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RequestsModelExists(requestsModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id", requestsModel.ProfileId);
+            ViewData["ProfileId"] = getUserId();
             ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.RequestedCourseId);
             return View(requestsModel);
         }
