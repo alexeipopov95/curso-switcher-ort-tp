@@ -9,12 +9,12 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .commonButton {
@@ -36,8 +36,9 @@ body {
 
 .buttonOrt {
     background-color: #024A83;
+    border-radius: 15px 15px 15px 15px;
     color: whitesmoke;
-    padding: 14px 28px;
+    padding: 30px 20px 30px 20px;
     font-size: 16px;
     cursor: pointer;
     text-align: center;
