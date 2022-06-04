@@ -1,9 +1,24 @@
-﻿
+﻿<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
 <h1>BackOffice - Course Exchanger</h1>
-<ul>
-    <li><a asp-area="" asp-controller="Campus" asp-action="Index">Administrar Sedes</a></li>
-    <li><a asp-area="" asp-controller="Career" asp-action="Index">Administrar Carreras</a></li>
-    <li><a asp-area="" asp-controller="Courses" asp-action="Index">Administrar Cursos</a></li>
-    <li><a asp-area="" asp-controller="Profile" asp-action="Index">Administrar Perfiles</a></li>
-    <li><a asp-area="" asp-controller="Requests" asp-action="Index">Administrar Peticiones</a></li>
-</ul>
+
+<hr />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm buttonOrt">
+      <a class="links" asp-area="" asp-controller="Campus" asp-action="Index">Administrar Sedes</a>   
+    </div>
+    <div class="col-sm buttonOrt">
+      <a class="links" asp-area="" asp-controller="Career" asp-action="Index">Administrar Carreras</a>
+    </div>
+    <div class="col-sm buttonOrt">
+      <a  class="links" asp-area="" asp-controller="Courses" asp-action="Index">Administrar Cursos</a>
+    </div>
+    <div class="col-sm buttonOrt">
+      <a class="links" asp-area="" asp-controller="Profile" asp-action="Index">Administrar Perfiles</a>
+    </div>
+    <div class="col-sm buttonOrt">
+      <a class="links" asp-area="" asp-controller="Requests" asp-action="Index">Administrar Peticiones</a>
+    </div>
+  </div>
+</div>
