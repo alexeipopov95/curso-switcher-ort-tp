@@ -6,56 +6,60 @@
 }
 
 <h1>@TITLE</h1>
-
-
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Last_name" class="control-label"></label>
-                <input asp-for="Last_name" class="form-control" />
-                <span asp-validation-for="Last_name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dni" class="control-label"></label>
-                <input asp-for="Dni" class="form-control" />
-                <span asp-validation-for="Dni" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
-                <select asp-for="CourseId" class ="form-control" asp-items="ViewBag.CourseId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CareerId" class="control-label"></label>
-                <select asp-for="CareerId" class ="form-control" asp-items="ViewBag.CareerId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CampusId" class="control-label"></label>
-                <select asp-for="CampusId" class ="form-control" asp-items="ViewBag.CampusId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="commonButton" />
-            </div>
-        </form>
+
+<form asp-action="Index">
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label asp-for="Email" for="userEmail" class="control-label">Email</label>
+      <input type="email" asp-for="Email" id="userEmail" class="form-control" for="userEmail" placeholder="Email"/>
+      <span asp-validation-for="Email" class="text-danger"></span>
     </div>
+    <div class="form-group col-md-6">
+      <label for="userPassword" asp-for="Password" class="control-label"></label>
+      <input asp-for="Password" class="form-control" type="password" id="userPassword" placeholder="Contraseña" />
+      <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+        <label asp-for="Name"  for="userName" class="control-label"></label>
+        <input asp-for="Name" class="form-control" type="text" id="userName" placeholder="Nombre" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="Last_name" for="userLastName" class="control-label"></label>
+        <input asp-for="Last_name" class="form-control" type="text" id="userLastName" placeholder="Apellido" />
+        <span asp-validation-for="Last_name" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="Dni" for="userDni" class="control-label"></label>
+        <input asp-for="Dni" class="form-control" type="text" id="userDni" placeholder="Documento" />
+        <span asp-validation-for="Dni" class="text-danger"></span>
+    </div>
+  </div>
+  <div class="form-row">
+      <div class="form-group col-md-4">
+            <label asp-for="CourseId" class="control-label" for="userCourse">Curso</label>
+            <select asp-for="CourseId" class ="form-control" id="userCourse" asp-items="ViewBag.CourseId"></select>
+      </div>
+      <div class="form-group col-md-4">
+          <label asp-for="CareerId" class="control-label"  for="userCareer">Carrera</label>
+          <select asp-for="CareerId" class ="form-control" id="userCareer" asp-items="ViewBag.CareerId"></select>
+      </div>
+      <div class="form-group col-md-4">
+          <label asp-for="CampusId" for="userCampus" class="control-label"></label>
+          <select asp-for="CampusId" id="userCampus" class ="form-control" asp-items="ViewBag.CampusId"></select>
+      </div>
+  </div>
+
+<div class="form-group">
+    <input type="submit" value="Registrarse" class="commonButton" />
 </div>
+</form>
+    <a type="button" class="commonButton" asp-controller="Login" asp-action="Index">Cancelar</a>
+
 @TempData["Message"]
 
 @section Scripts {

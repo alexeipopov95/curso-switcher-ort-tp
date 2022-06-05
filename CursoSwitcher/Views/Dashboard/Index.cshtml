@@ -2,81 +2,48 @@
 
 
 @{
-    var TITLE = "Solicitudes";
+    var TITLE = "Mis solicitudes";
     ViewData["Title"] = TITLE;
 }
 
-<h1>@TITLE</h1>
-
+<h1 style="text-align:center">@TITLE</h1>
+<hr />
 
 <!--If model is not empty -->
-@if (Model.Any())
-{
-    <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Profile)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequestedCourse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OfferedCourse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Visible_id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created_at)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated_at)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Profile.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestedCourse.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfferedCourse.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Visible_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created_at)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated_at)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+@if (Model.Any()) {
+    @foreach (var item in Model) {
+    <div class="card text-center">
+        
+            <div class="card-header" style="bold">
+                <strong>ID Público: @Html.DisplayFor(modelItem => item.Visible_id)</strong>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Hola, @Html.DisplayFor(modelItem => item.Profile.Name).</h5>
+                <p class="card-text">
+                    Tu solicitud creada en la fecha @Html.DisplayFor(modelItem => item.Created_at)
+                    con el pedido de cambio de curso <strong>@Html.DisplayFor(modelItem => item.OfferedCourse.Name)</strong>
+                    por el <strong>@Html.DisplayFor(modelItem => item.RequestedCourse.Name)</strong>
+                    actualmente se encuentra en estado
+                </p>
+                <p style="text-transform:uppercase"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
+            </div>
+            <div class="card-footer text-muted">
+                Última actualización: @Html.DisplayFor(modelItem => item.Updated_at)
+            </div>
+    </div>
+    <br />
+    }
     
 } else
 {
-    <p>No tenes nada amiguito.</p>
-    <p>
-        <a asp-action="Create">Realizar una solicitud de cambio</a>
-    </p>
+    <div class="card">
+        <div class="card-body">
+            <p style="text-align:center">No cuenta con ninguna solicitud en estos momentos. <br>
+                <a asp-action="Create">Realizar una solicitud de cambio</a>
+            </p>
+        </div>
+    </div>
+    
 }
 

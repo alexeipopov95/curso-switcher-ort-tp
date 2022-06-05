@@ -29,8 +29,8 @@ namespace CursoSwitcher.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index([Bind("Id,Name,Last_name,Dni,Password,Email,CourseId,CareerId,CampusId")] ProfileModel profileModel)
         {
-            var _dni_valid = _context.Profiles.Any(o => o.Dni.Equals(profileModel.Dni) && o.Email.Equals(profileModel.Email));
-            if (ModelState.IsValid && !_dni_valid)
+            var userExists = _context.Profiles.Any(e => e.Email.Equals(profileModel.Email));
+            if (ModelState.IsValid && !userExists)
             {
                 _context.Add(profileModel);
                 await _context.SaveChangesAsync();
@@ -39,7 +39,7 @@ namespace CursoSwitcher.Controllers
             ViewData["CampusId"] = new SelectList(_context.Campus, "Id", "Name");
             ViewData["CareerId"] = new SelectList(_context.Careers, "Id", "Name");
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name");
-            TempData["Message"] = "Ya existe actualmente un usuario con ese documento o correo.";
+            TempData["Message"] = "Ya existe actualmente una cuenta con ese correo electrónico.";
             return View();
         }
 

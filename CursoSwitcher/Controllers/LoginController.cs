@@ -54,7 +54,6 @@ namespace CursoSwitcher.Controllers
         {
             if (UserValidation(dni, password))
             {
-                TempData["Message"] = "Inicio de sesión correcto.";
                 return RedirectToAction("Index", "Dashboard");
             } else
             {

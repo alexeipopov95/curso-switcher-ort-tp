@@ -4,7 +4,7 @@
     ViewData["Title"] = "Delete";
 }
 
-<h3>¿Esta seguro de que quiere cancelar?</h3>
+<h3 style="text-align:center">¿Esta seguro de que quiere cancelar?</h3>
 <div>
     <hr />
     <dl class="row" hidden>
@@ -54,7 +54,13 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Cancelar" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-success">Volver</a>
+        <div class="form-row" style="text-align:center;">
+            <div class="form-group col-md-6">
+                <input type="submit" value="Cancelar" class="btn btn-danger" style="font-size:35px" />
+            </div>
+            <div class="form-group col-md-6">
+                <a asp-action="Index" class="btn btn-success" style="font-size:35px">Volver</a>
+            </div>
+        </div>
     </form>
 </div>
