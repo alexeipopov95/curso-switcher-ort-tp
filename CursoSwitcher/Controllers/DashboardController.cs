@@ -26,39 +26,16 @@ namespace CursoSwitcher.Controllers
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-            // Temporal, solo para ver el usuario / sesión.
-            Console.WriteLine("Ingresó el usuario con el ID: {0}",getUserId());
-
             var modelContextManager = _context
                 .Requests
+                // Aqui en base al ID del usuario filtro SOLAMENTE aquellas solicitudes que le correspondan.
                 .Where(u => u.ProfileId.Equals(getUserId()))
                 .Include(r => r.OfferedCourse)
                 .Include(r => r.Profile)
                 .Include(r => r.RequestedCourse);
-            Console.WriteLine(modelContextManager);
             return View(await modelContextManager.ToListAsync());
         }
 
-        // GET: Dashboard/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Requests == null)
-            {
-                return NotFound();
-            }
-
-            var requestsModel = await _context.Requests
-                .Include(r => r.OfferedCourse)
-                .Include(r => r.Profile)
-                .Include(r => r.RequestedCourse)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (requestsModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(requestsModel);
-        }
 
         // GET: Dashboard/Create
         public IActionResult Create()
@@ -74,10 +51,8 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId,status,Visible_id,Created_at,Updated_at")] RequestsModel requestsModel)
+        public async Task<IActionResult> Create([Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId")] RequestsModel requestsModel)
         {
-            Console.WriteLine(requestsModel.Id);
-            Console.WriteLine(requestsModel.ProfileId);
             if (ModelState.IsValid)
             {
                 _context.Add(requestsModel);
@@ -123,7 +98,8 @@ namespace CursoSwitcher.Controllers
             var requestsModel = await _context.Requests.FindAsync(id);
             if (requestsModel != null)
             {
-                _context.Requests.Remove(requestsModel);
+                requestsModel.status = "Cancelado";
+                //_context.Requests.Remove(requestsModel);
             }
             
             await _context.SaveChangesAsync();

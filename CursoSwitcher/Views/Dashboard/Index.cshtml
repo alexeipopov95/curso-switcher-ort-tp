@@ -25,8 +25,17 @@
                     por el <strong>@Html.DisplayFor(modelItem => item.RequestedCourse.Name)</strong>
                     actualmente se encuentra en estado
                 </p>
-                <p style="text-transform:uppercase"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
+                @if (item.status.Equals("Aceptado")) {
+                    <p style="text-transform:uppercase; color:green"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                } else if (item.status.Equals("Rechazado")) {
+                    <p style="text-transform:uppercase; color:red"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                } else if (item.status.Equals("Cancelado")){
+                    <p style="text-transform:uppercase ; color:blue"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                } else
+                {
+                    <p style="text-transform:uppercase ; color:orange"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>                    
+                }
             </div>
             <div class="card-footer text-muted">
                 Última actualización: @Html.DisplayFor(modelItem => item.Updated_at)
@@ -34,7 +43,11 @@
     </div>
     <br />
     }
-    
+    <div class="text-center mb-5">
+         <a asp-action="Create" class="btn btn-primary">Realizar una solicitud de cambio</a>
+    </div>
+
+
 } else
 {
     <div class="card">
