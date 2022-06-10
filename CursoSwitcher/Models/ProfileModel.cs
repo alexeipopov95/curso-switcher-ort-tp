@@ -19,7 +19,7 @@ namespace CursoSwitcher.Models
         public string Dni { get; set; }
         public string Password { get; set; }
 
-        [Display(Name = "Corre electrónico")]
+        [Display(Name = "Correo electrónico")]
         [EmailAddress]
         public string Email { get; set; }
 

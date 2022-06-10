@@ -12,18 +12,33 @@
 <!--If model is not empty -->
 @if (Model.Any()) {
     @foreach (var item in Model) {
+    
     <div class="card text-center">
-        
             <div class="card-header" style="bold">
-                <strong>ID Público: @Html.DisplayFor(modelItem => item.Visible_id)</strong>
+                <div style="float: left">
+                     <h6 style="display:inline">Curso Origen: @Html.DisplayFor(modelItem => item.OfferedCourse.Name) --- </h6>
+                    <h6 style="display:inline">Curso Destino: @Html.DisplayFor(modelItem => item.RequestedCourse.Name) </h6>
+                </div>
+                @if (item.status.Equals("Aceptado")) {
+                    <a class="btn btn-success" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>
+                } else if (item.status.Equals("Rechazado")) {
+                    <a class="btn btn-danger" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>
+                } else if (item.status.Equals("Cancelado")){
+                    <a class="btn btn-secondary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>
+                } else
+                {
+                    <a class="btn btn btn-warning" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>              
+                }                    
             </div>
+            <div class="collapse multi-collapse" id=item.id>
             <div class="card-body">
+                <strong>ID Público: @Html.DisplayFor(modelItem => item.Visible_id)</strong>
                 <h5 class="card-title">Hola, @Html.DisplayFor(modelItem => item.Profile.Name).</h5>
                 <p class="card-text">
                     Tu solicitud creada en la fecha @Html.DisplayFor(modelItem => item.Created_at)
                     con el pedido de cambio de curso <strong>@Html.DisplayFor(modelItem => item.OfferedCourse.Name)</strong>
-                    por el <strong>@Html.DisplayFor(modelItem => item.RequestedCourse.Name)</strong>
-                    actualmente se encuentra en estado
+                    por el <strong>@Html.DisplayFor(modelItem => item.RequestedCourse.Name)</strong><br>
+                    Actualmente se encuentra en estado:
                 </p>
 
                 @if (item.status == "Aprobada") {
@@ -41,12 +56,14 @@
             <div class="card-footer text-muted">
                 Última actualización: @Html.DisplayFor(modelItem => item.Updated_at)
             </div>
+            </div>
     </div>
     <br />
     }
     <div class="text-center mb-5">
          <a asp-action="Create" class="btn btn-primary">Realizar una solicitud de cambio</a>
     </div>
+    
 
 
 } else
@@ -60,4 +77,3 @@
     </div>
     
 }
-
