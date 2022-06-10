@@ -44,13 +44,16 @@
 
                 @if (item.status == "Aprobada") {
                     <p style="text-transform:uppercase; color:green"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                    <p><strong>A partir del  @Html.DisplayFor(modelItem => item.Updated_at) su curso es el @Html.DisplayFor(modelItem => item.RequestedCourse.Name) .</strong></p>
                 } else if (item.status.Equals("Rechazada") || item.status.Equals("Error")) {
                     <p style="text-transform:uppercase; color:red"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                    <p><strong>Comuniquese con la secretaría para mayor información.</strong></p>
                 } else if (item.status.Equals("Cancelado")){
                     <p style="text-transform:uppercase ; color:blue"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
                 } else
                 {
                     <p style="text-transform:uppercase ; color:orange"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
+                    <p><strong>Deberá aguardar un plazo de 24-48 horas hábiles para que un representante de la secretaría valide su solicitud.</strong></p>
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>                    
                 }
             </div>
