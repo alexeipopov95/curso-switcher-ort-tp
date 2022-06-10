@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Profile)
+                Id de Alumno
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RequestedCourse)
+                Curso solicitado
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OfferedCourse)
+                Curso ofrecido
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.status)
@@ -30,9 +30,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Created_at)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated_at)
             </th>
             <th></th>
         </tr>
@@ -59,9 +56,6 @@
                 @Html.DisplayFor(modelItem => item.Created_at)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Updated_at)
-            </td>
-            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -69,4 +63,45 @@
         </tr>
 }
     </tbody>
+</table>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID del solicitante
+            </th>
+            <th>
+                Nombre del curso solicitado
+            </th>
+            <th>
+                Id del ofrecedor
+            </th>
+            <th>
+                Nombre del curso ofrecido
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in @ViewBag.MatchList)
+{
+    <tr>
+        <td>
+             @item.RequesterId
+        </td>
+        <td>
+            @item.RequestedCourseName
+        </td>
+        <td>
+            @item.OffererId
+        </td>
+        <td>
+            @item.OfferedCourseName
+        </td>
+    </tr>
+
+}
+</tbody>
 </table>
