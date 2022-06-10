@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CursoSwitcher.Models;
 using Microsoft.AspNetCore.Authorization;
+using CursoSwitcher.Commons;
 
 namespace CursoSwitcher.Controllers
 {
@@ -85,9 +86,11 @@ namespace CursoSwitcher.Controllers
             {
                 return NotFound();
             }
+            RequestStatusConstantsList statusList = new RequestStatusConstantsList();
             ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
             ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id", requestsModel.ProfileId);
             ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.RequestedCourseId);
+            ViewData["RequestStatus"] = statusList.GenerateSelectListStatus();
             return View(requestsModel);
         }
 

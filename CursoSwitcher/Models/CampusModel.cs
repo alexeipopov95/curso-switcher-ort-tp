@@ -15,5 +15,6 @@ namespace CursoSwitcher.Models
         public string? Description { get; set; }
 
         public List<ProfileModel>? Profile { get; set; }
+
     }
 }

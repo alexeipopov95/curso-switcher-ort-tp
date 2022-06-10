@@ -26,20 +26,20 @@ namespace CursoSwitcher.Models
         [Display(Name = "Administrador")]
         public bool Is_moderator { get; set; }
 
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
 
         [Display(Name = "Curso")]
-        public CoursesModel? Course { get; set; }
+        public virtual CoursesModel Course { get; set; }
 
         [Display(Name = "Carrera")]
         [ForeignKey("CareerModel")]
-        public int CareerId { get; set; }
-        public CareerModel? Career { get; set; }
+        public int? CareerId { get; set; }
+        public virtual CareerModel Career { get; set; }
 
         [Display(Name = "Sede")]
         [ForeignKey("CampusModel")]
-        public int CampusId { get; set; }
-        public CampusModel? Campus { get; set; }
+        public int? CampusId { get; set; }
+        public virtual CampusModel Campus { get; set; }
 
     }
 

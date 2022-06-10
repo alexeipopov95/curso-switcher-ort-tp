@@ -25,7 +25,7 @@ namespace CursoSwitcher.Models
 
         public RequestsModel()
         {
-            this.status = RequestStatusConstants.PENDING;
+            this.status = RequestStatusConstantsList.PENDIENTE;
         }
     }
 }

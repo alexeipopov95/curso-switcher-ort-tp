@@ -25,9 +25,10 @@
                     por el <strong>@Html.DisplayFor(modelItem => item.RequestedCourse.Name)</strong>
                     actualmente se encuentra en estado
                 </p>
-                @if (item.status.Equals("Aceptado")) {
+
+                @if (item.status == "Aprobada") {
                     <p style="text-transform:uppercase; color:green"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
-                } else if (item.status.Equals("Rechazado")) {
+                } else if (item.status.Equals("Rechazada") || item.status.Equals("Error")) {
                     <p style="text-transform:uppercase; color:red"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>
                 } else if (item.status.Equals("Cancelado")){
                     <p style="text-transform:uppercase ; color:blue"><strong>@Html.DisplayFor(modelItem => item.status)</strong></p>

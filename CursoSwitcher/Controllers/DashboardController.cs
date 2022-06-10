@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CursoSwitcher.Models;
 using Microsoft.AspNetCore.Authorization;
+using CursoSwitcher.Commons;
 
 namespace CursoSwitcher.Controllers
 {
@@ -23,6 +24,15 @@ namespace CursoSwitcher.Controllers
             return user_id;
         }
 
+        private int? getCareerIdRelatedToUser()
+        {
+            int userId = getUserId();
+            if (userId > 0 && userId != null) {
+                return _context.Profiles.First(u => u.Id.Equals(userId)).CareerId;
+            }
+            return 0;
+        }
+
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
@@ -39,10 +49,21 @@ namespace CursoSwitcher.Controllers
 
         // GET: Dashboard/Create
         public IActionResult Create()
-        {            
-            ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
-            ViewData["ProfileId"] = getUserId();
-            ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
+        {
+            var userCareerId = getCareerIdRelatedToUser();
+            var userId = getUserId();
+            if (userCareerId != null)
+            {
+                ViewData["OfferedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name");
+                ViewData["ProfileId"] = userId;
+                ViewData["RequestedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name");
+            } else
+            {
+                ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
+                ViewData["ProfileId"] = getUserId();
+                ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
+
+            }
             return View();
         }
 
@@ -53,15 +74,29 @@ namespace CursoSwitcher.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId")] RequestsModel requestsModel)
         {
+            var userCareerId = getCareerIdRelatedToUser();
+            var userId = getUserId();
+
             if (ModelState.IsValid)
             {
                 _context.Add(requestsModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
-            ViewData["ProfileId"] = getUserId();
-            ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.RequestedCourseId);
+
+            if (userCareerId != null)
+            {
+                ViewData["OfferedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name", requestsModel.OfferedCourseId);
+                ViewData["ProfileId"] = userId;
+                ViewData["RequestedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name", requestsModel.RequestedCourseId);
+            }
+            else
+            {
+                ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
+                ViewData["ProfileId"] = getUserId();
+                ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
+
+            }
             return View(requestsModel);
         }
 
@@ -98,8 +133,7 @@ namespace CursoSwitcher.Controllers
             var requestsModel = await _context.Requests.FindAsync(id);
             if (requestsModel != null)
             {
-                requestsModel.status = "Cancelado";
-                //_context.Requests.Remove(requestsModel);
+                requestsModel.status = RequestStatusConstantsList.CANCELADO;
             }
             
             await _context.SaveChangesAsync();
