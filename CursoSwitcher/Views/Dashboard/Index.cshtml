@@ -16,21 +16,22 @@
     <div class="card text-center">
             <div class="card-header" style="bold">
                 <div style="float: left">
-                     <h6 style="display:inline">Curso Origen: @Html.DisplayFor(modelItem => item.OfferedCourse.Name) --- </h6>
-                    <h6 style="display:inline">Curso Destino: @Html.DisplayFor(modelItem => item.RequestedCourse.Name) </h6>
+                     <h5 style="display:inline">Curso Origen: @Html.DisplayFor(modelItem => item.OfferedCourse.Name) | </h5>
+                    <h5 style="display:inline">Curso Destino: @Html.DisplayFor(modelItem => item.RequestedCourse.Name) </h5>
                 </div>
-                @if (item.status.Equals("Aceptado")) {
-                    <a class="btn btn-success" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>
-                } else if (item.status.Equals("Rechazado")) {
-                    <a class="btn btn-danger" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>
+
+                @if (item.status.Equals("Aprobada")) {
+                    <a class="btn btn-success" data-toggle="collapse" href="#@item.Id" role="button" aria-expanded="false" aria-controls="" style="float: right">Ver Detalles</a>
+                } else if (item.status.Equals("Rechazada") || item.status.Equals("Error")) {
+                    <a class="btn btn-danger" data-toggle="collapse" href="#@item.Id" role="button" aria-expanded="false" aria-controls=item.Id style="float: right">Ver Detalles</a>
                 } else if (item.status.Equals("Cancelado")){
-                    <a class="btn btn-secondary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>
+                    <a class="btn btn-secondary" data-toggle="collapse" href="#@item.Id" role="button" aria-expanded="false" aria-controls=item.Id style="float: right">Ver Detalles</a>
                 } else
                 {
-                    <a class="btn btn btn-warning" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=item.id style="float: right">Ver Detalles</a>              
+                    <a class="btn btn btn-warning" data-toggle="collapse" href="#@item.Id" role="button" aria-expanded="false" aria-controls=item.Id style="float: right">Ver Detalles</a>              
                 }                    
             </div>
-            <div class="collapse multi-collapse" id=item.id>
+            <div class="collapse multi-collapse" id="@item.Id">
             <div class="card-body">
                 <strong>ID Público: @Html.DisplayFor(modelItem => item.Visible_id)</strong>
                 <h5 class="card-title">Hola, @Html.DisplayFor(modelItem => item.Profile.Name).</h5>
