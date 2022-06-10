@@ -20,6 +20,7 @@ builder.Services.AddEntityFrameworkSqlite().AddDbContext<ModelContextManager>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(ConfigurationCookie);
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
