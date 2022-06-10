@@ -17,6 +17,7 @@ body {
     margin-bottom: 60px;
 }
 
+
 .commonButton {
     background-color: #024A83;
     color: whitesmoke;
@@ -36,16 +37,16 @@ body {
 
 .buttonOrt {
     background-color: #024A83;
-    border-radius: 15px 15px 15px 15px;
+    border-radius: .25rem;
     color: whitesmoke;
-    padding: 30px 20px 30px 20px;
+    padding: .375rem .75rem;
     font-size: 16px;
     cursor: pointer;
     text-align: center;
     margin: 5px;
-    -webkit-box-shadow: 0 8px 6px -6px black;
-    -moz-box-shadow: 0 8px 6px -6px black;
-    box-shadow: 0 8px 6px -6px black;
+    -webkit-box-shadow: 0 8px 6px -6px #313131;
+    -moz-box-shadow: 0 8px 6px -6px #313131;
+    box-shadow: 0 8px 6px -6px #313131;
 }
 
      .commonButton:hover, .buttonOrt:hover {

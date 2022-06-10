@@ -4,7 +4,23 @@
     ViewData["Title"] = "Delete";
 }
 
-<h3 style="text-align:center">¿Esta seguro de que quiere cancelar?</h3>
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Está seguro que desea cancelar ?</h4>
+  <p>Puede cancelar la solicitud en cualquier momento previo a que la misma sea aceptada por Secretaria ORT.</p>
+  <hr>
+      <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-row" style="text-align:center;">
+            <div class="form-group col-md-6">
+                <input type="submit" value="Cancelar" class="btn btn-danger btn-lg btn-block"/>
+            </div>
+            <div class="form-group col-md-6">
+                <a asp-action="Index" class="btn btn-primary btn-lg btn-block">Volver</a>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div>
     <hr />
     <dl class="row" hidden>
@@ -52,15 +68,5 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <div class="form-row" style="text-align:center;">
-            <div class="form-group col-md-6">
-                <input type="submit" value="Cancelar" class="btn btn-danger" style="font-size:35px" />
-            </div>
-            <div class="form-group col-md-6">
-                <a asp-action="Index" class="btn btn-success" style="font-size:35px">Volver</a>
-            </div>
-        </div>
-    </form>
+
 </div>
