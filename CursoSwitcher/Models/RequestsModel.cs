@@ -12,12 +12,12 @@ namespace CursoSwitcher.Models
         public ProfileModel? Profile { get; set; }
         [Display(Name = "Curso solicitado")]
         public int RequestedCourseId { get; set; }
-        public CoursesModel RequestedCourse { get; set; }
+        public CoursesModel? RequestedCourse { get; set; }
         [Display(Name = "Curso ofrecido")]
         public int OfferedCourseId { get; set; }
-        public CoursesModel OfferedCourse { get; set; }
+        public CoursesModel? OfferedCourse { get; set; }
         [Display(Name = "Estado")]
-        public string status { get; set; }
+        public string? status { get; set; }
 
         public RequestsModel()
         {

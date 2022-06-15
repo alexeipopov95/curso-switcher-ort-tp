@@ -107,8 +107,7 @@ namespace CursoSwitcher.Controllers
                 && !r.status.Equals(RequestStatusConstantsList.CANCELADO)
                 && !r.status.Equals(RequestStatusConstantsList.RECHAZADA)
                 && !r.status.Equals(RequestStatusConstantsList.ERROR)
-            );
-
+            ) ;
             if (sameCourses(requestsModel)){
                 TempData["AlreadyExists"] = "No puede realizar una solicitúd donde ambos cursos sean iguales.";
                 reloadData(userId, userCareerId, requestsModel);
