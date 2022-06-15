@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using static CursoSwitcher.Models.RequestsModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CursoSwitcher.Models;
@@ -17,10 +18,63 @@ namespace CursoSwitcher.Controllers
             _context = context;
         }
 
+
+        private List<RequestModelMatch> generateMatchList()
+        {
+            List<RequestModelMatch> matchList = new List<RequestModelMatch>();
+
+            var requesters = _context.Requests.ToList();
+            var offerers = _context.Requests.ToList();
+            List<string> terminalStatusList = new List<string> {
+                RequestStatusConstantsList.APROBADA,
+                RequestStatusConstantsList.RECHAZADA,
+                RequestStatusConstantsList.ERROR,
+                RequestStatusConstantsList.CANCELADO
+            };
+
+
+            foreach (var requester in requesters)
+            {
+                foreach (var offerer in offerers)
+                {
+                    if (!terminalStatusList.Contains(requester.status) && !terminalStatusList.Contains(offerer.status))
+                    {
+                        if (requester.RequestedCourseId == offerer.OfferedCourseId)
+                        {
+                            if (!matchList.Any(o =>
+                            o.OffererId.Equals(requester.ProfileId)
+                            && o.RequesterId.Equals(offerer.ProfileId)
+                            ))
+                            {
+                                var requesterCourseName = _context.Courses.FirstOrDefault(o => o.Id.Equals(requester.RequestedCourseId)).Name;
+                                var offererCourseName = _context.Courses.FirstOrDefault(o => o.Id.Equals(requester.OfferedCourseId)).Name;
+
+                                RequestModelMatch obj = new RequestModelMatch(
+                                    requester.RequestedCourseId,
+                                    requester.OfferedCourseId,
+                                    offerer.ProfileId,
+                                    requester.ProfileId,
+                                    requesterCourseName,
+                                    offererCourseName
+                                );
+                                matchList.Add(obj);
+
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            return matchList;
+        }
+
+
         // GET: Requests
         public async Task<IActionResult> Index()
         {
             var modelContextManager = _context.Requests.Include(r => r.OfferedCourse).Include(r => r.Profile).Include(r => r.RequestedCourse);
+            ViewBag.MatchList = generateMatchList();
             return View(await modelContextManager.ToListAsync());
         }
 
@@ -59,7 +113,7 @@ namespace CursoSwitcher.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId,status,Visible_id,Created_at,Updated_at")] RequestsModel requestsModel)
+        public async Task<IActionResult> Create([Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId,status")] RequestsModel requestsModel)
         {
             if (ModelState.IsValid)
             {

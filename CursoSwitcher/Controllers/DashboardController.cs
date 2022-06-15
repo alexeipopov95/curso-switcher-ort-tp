@@ -24,6 +24,35 @@ namespace CursoSwitcher.Controllers
             return user_id;
         }
 
+        private bool sameCourses(RequestsModel requestModel)
+        {
+            bool same = false;
+            if (requestModel.OfferedCourseId == requestModel.RequestedCourseId)
+            {
+                same = true;
+            }
+            return same;
+        }
+        private void reloadData(int userId)
+        {
+            ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
+            ViewData["ProfileId"] = userId;
+            ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
+        }
+        private void reloadData(int userId, int? userData)
+        {
+            ViewData["OfferedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userData), "Id", "Name");
+            ViewData["ProfileId"] = userId;
+            ViewData["RequestedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userData), "Id", "Name");
+        }
+        private void reloadData(int userId, int? userData, RequestsModel requestData)
+        {
+            ViewData["OfferedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userData), "Id", "Name", requestData.OfferedCourseId);
+            ViewData["ProfileId"] = userId;
+            ViewData["RequestedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userData), "Id", "Name", requestData.RequestedCourseId);
+        }
+
+
         private int? getCareerIdRelatedToUser()
         {
             int userId = getUserId();
@@ -46,7 +75,6 @@ namespace CursoSwitcher.Controllers
             return View(await modelContextManager.ToListAsync());
         }
 
-
         // GET: Dashboard/Create
         public IActionResult Create()
         {
@@ -54,28 +82,44 @@ namespace CursoSwitcher.Controllers
             var userId = getUserId();
             if (userCareerId != null)
             {
-                ViewData["OfferedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name");
-                ViewData["ProfileId"] = userId;
-                ViewData["RequestedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name");
+                reloadData(userId, userCareerId);
             } else
             {
-                ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
-                ViewData["ProfileId"] = getUserId();
-                ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name");
-
+                reloadData(userId);
             }
             return View();
         }
 
+
+
+
         // POST: Dashboard/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProfileId,RequestedCourseId,OfferedCourseId")] RequestsModel requestsModel)
         {
             var userCareerId = getCareerIdRelatedToUser();
             var userId = getUserId();
+            var request = _context.Requests.FirstOrDefault(
+                r => r.RequestedCourseId == requestsModel.RequestedCourseId
+                && r.OfferedCourseId == requestsModel.OfferedCourseId
+                && r.ProfileId == getUserId()
+                && !r.status.Equals(RequestStatusConstantsList.CANCELADO)
+                && !r.status.Equals(RequestStatusConstantsList.RECHAZADA)
+                && !r.status.Equals(RequestStatusConstantsList.ERROR)
+            ) ;
+            if (sameCourses(requestsModel)){
+                TempData["AlreadyExists"] = "No puede realizar una solicitúd donde ambos cursos sean iguales.";
+                reloadData(userId, userCareerId, requestsModel);
+                return View(requestsModel);
+            }
+
+            if (request != null)
+            {
+                TempData["AlreadyExists"] = "Actualmente ya existe una solicitud para ese curso o la solicitúd ya fue aprobada.";
+                reloadData(userId, userCareerId, requestsModel);
+                return View(requestsModel);
+            }
 
             if (ModelState.IsValid)
             {
@@ -83,20 +127,7 @@ namespace CursoSwitcher.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            if (userCareerId != null)
-            {
-                ViewData["OfferedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name", requestsModel.OfferedCourseId);
-                ViewData["ProfileId"] = userId;
-                ViewData["RequestedCourseId"] = new SelectList(_context.Courses.Where(u => u.CareerId == userCareerId), "Id", "Name", requestsModel.RequestedCourseId);
-            }
-            else
-            {
-                ViewData["OfferedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
-                ViewData["ProfileId"] = getUserId();
-                ViewData["RequestedCourseId"] = new SelectList(_context.Courses, "Id", "Name", requestsModel.OfferedCourseId);
-
-            }
+            reloadData(userId, userCareerId);
             return View(requestsModel);
         }
 

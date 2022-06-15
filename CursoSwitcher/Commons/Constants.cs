@@ -8,9 +8,10 @@ namespace CursoSwitcher.Commons
         public const string APROBADA = "Aprobada";
         public const string ERROR = "Error";
         public const string RECHAZADA = "Rechazada";
-        public const string PROCESANDO = "Procesando";
         public const string PENDIENTE = "Pendiente";
         public const string CANCELADO = "Cancelado";
+
+        public List<string> TERMINAL_STATUS_LIST = new List<string> { APROBADA, RECHAZADA, ERROR, CANCELADO };
 
         public List<SelectListItem> GenerateSelectListStatus()
         {
@@ -19,7 +20,6 @@ namespace CursoSwitcher.Commons
                 ERROR,
                 RECHAZADA,
                 PENDIENTE,
-                PROCESANDO,
                 CANCELADO
             };
 
