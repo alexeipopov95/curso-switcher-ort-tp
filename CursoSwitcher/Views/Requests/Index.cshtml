@@ -31,7 +31,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Created_at)
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -57,8 +57,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }
@@ -67,7 +66,7 @@
 
 <br />
 
-<table class="table">
+<table class="table" id="matchMakingTable">
     <thead>
         <tr>
             <th>
@@ -82,26 +81,109 @@
             <th>
                 Nombre del curso ofrecido
             </th>
+            <th>
+                Opciones
+            </th>
+            <th>
+                Acciones
+            </th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in @ViewBag.MatchList)
-{
-    <tr>
-        <td>
-             @item.RequesterId
-        </td>
-        <td>
-            @item.RequestedCourseName
-        </td>
-        <td>
-            @item.OffererId
-        </td>
-        <td>
-            @item.OfferedCourseName
-        </td>
-    </tr>
+
+
+<tbody>
+@{
+int counter = 0;
+
+                                @foreach (var item in @ViewBag.MatchList)
+    {
+                                <form id="@counter">
+                                <tr>
+                                    <td>
+                                        <input class="fakeInput" value="@item.RequesterId" id="@counter-ReqUserId"></input>
+                                    </td>
+                                    <td>
+                                        <input class="fakeInput" value="@item.RequestedCourseName" id="@counter-ReqCourseName"></input>
+                                    </td>
+                                    <td>
+                                        <input class="fakeInput" value="@item.OffererId" id="@counter-OffUserId"></input>
+                                    </td>
+                                    <td>
+                                        <input class="fakeInput" value="@item.OfferedCourseName" id="@counter-OffCourseName"></input>
+                                    </td>
+                                    <td>
+                                        <select class ="form-control" id="@counter-matches">
+                                        @foreach (var item2 in @ViewBag.OperationalStatus) {
+                                            <option value="@item2">@item2</option>
+            }   
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="buttonOrt" onclick="updateMatches(@counter)">Actualizar</button>
+                                    </td>
+                                </tr>
+                                </form>
+    counter = counter + 1;
+}
 
 }
 </tbody>
 </table>
+
+<script>
+const CreqUserId = "-ReqUserId";
+const CreqCourseName = "-ReqCourseName";
+const CoffUserId = "-OffUserId";
+const CoffCourseName = "-OffCourseName";
+const Cmatches = "-matches";
+const URL = "https://localhost:7013/Requests"
+
+function formDataIds(id) {
+    let reqUserId = id + CreqUserId;
+    let reqCourseName = id + CreqCourseName;
+    let offUserId = id + CoffUserId;
+    let offCourseName = id + CoffCourseName;
+    let operacion = id + Cmatches;
+    return [reqUserId, reqCourseName, offUserId, offCourseName, operacion]
+}
+
+function formPayload(dataArray) {
+    let reqUserId = document.getElementById(dataArray[0]).value
+    let reqCourseName = document.getElementById(dataArray[1]).value
+    let offUserId = document.getElementById(dataArray[2]).value
+    let offCourseName = document.getElementById(dataArray[3]).value
+    let operation = document.getElementById(dataArray[4]).value
+    return {
+        "requesterId" : reqUserId,
+        "requesterCourseName" : reqCourseName,
+        "offererId" : offUserId,
+        "offererCourseName" : offCourseName,
+        "operation" : operation,
+    }
+}
+
+function sendUpdates(payload) {
+    console.log(payload);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", URL);
+
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = () => console.log(xhr.responseText);
+    xhr.send(payload);
+}
+
+
+function updateMatches(id) {
+
+    var dataArray = formDataIds(id);
+    var payload = formPayload(dataArray);
+    var a = JSON.stringify(payload);
+    console.log(a)
+    sendUpdates(a);
+    
+}
+
+
+</script>

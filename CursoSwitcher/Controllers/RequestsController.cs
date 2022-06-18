@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using CursoSwitcher.Models;
 using Microsoft.AspNetCore.Authorization;
 using CursoSwitcher.Commons;
+using System.Diagnostics;
 
 namespace CursoSwitcher.Controllers
 {
@@ -73,8 +74,10 @@ namespace CursoSwitcher.Controllers
         // GET: Requests
         public async Task<IActionResult> Index()
         {
+            List<string> operationalLists = new RequestStatusConstantsList().getOperationalList();
             var modelContextManager = _context.Requests.Include(r => r.OfferedCourse).Include(r => r.Profile).Include(r => r.RequestedCourse);
             ViewBag.MatchList = generateMatchList();
+            ViewBag.OperationalStatus = operationalLists;
             return View(await modelContextManager.ToListAsync());
         }
 
@@ -230,5 +233,16 @@ namespace CursoSwitcher.Controllers
         {
           return (_context.Requests?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        /*
+         * TAREA PARA MI
+         * CREAR UN NUEVO CONTROLADOR, AL CUAL PEGARLE POR POST DESDE LA VISTA.
+         * ENTONCES EL CHISTE ES QUE DESDE EL INDEX DEL REQUESTCONTROLLER MANDE EL POST AL NUEVO CONTROLADOR
+         * EL NUEVO CONTROLADOR PROCESA LA REQUEST, SI ESTA TODO BIEN;
+         *  - ACTUALIZA EL STATUS DE LOS USUARIOS Y REDIRIJE NUEVAMENTE AL INDEX DEL REQUESTCONTROLLER
+         * SI SALE TODO MAL;
+         *  - NO HACE UN CARAJO Y SOLAMENTE REDIRIJE AL INDEX DEL REQUESTCONTROLLER.
+         */
+
     }
 }
