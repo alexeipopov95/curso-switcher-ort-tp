@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<CursoSwitcher.Models.RequestsModel>
 
 @{
-    var TITLE = "Solicitudes";
-    ViewData["Title"] = TITLE;
+    var MAIN_TITLE = "Solicitudes";
+    var SECCONDARY_TITLE = "Matchmaking";
+    ViewData["Title"] = MAIN_TITLE ;
 }
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-<h1>@TITLE</h1>
+<h1>@MAIN_TITLE </h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -66,6 +64,8 @@
 
 <br />
 
+<h1>@SECCONDARY_TITLE </h1>
+
 <table class="table" id="matchMakingTable">
     <thead>
         <tr>
@@ -95,34 +95,34 @@
 @{
 int counter = 0;
 
-                                @foreach (var item in @ViewBag.MatchList)
+                                                @foreach (var item in @ViewBag.MatchList)
     {
-                                <form id="@counter">
-                                <tr>
-                                    <td>
-                                        <input class="fakeInput" value="@item.RequesterId" id="@counter-ReqUserId"></input>
-                                    </td>
-                                    <td>
-                                        <input class="fakeInput" value="@item.RequestedCourseName" id="@counter-ReqCourseName"></input>
-                                    </td>
-                                    <td>
-                                        <input class="fakeInput" value="@item.OffererId" id="@counter-OffUserId"></input>
-                                    </td>
-                                    <td>
-                                        <input class="fakeInput" value="@item.OfferedCourseName" id="@counter-OffCourseName"></input>
-                                    </td>
-                                    <td>
-                                        <select class ="form-control" id="@counter-matches">
-                                        @foreach (var item2 in @ViewBag.OperationalStatus) {
-                                            <option value="@item2">@item2</option>
+                                                <form action="RequestsUpdate" id="@counter" method="post">
+                                                <tr>
+                                                    <td>
+                                                        <input class="fakeInput" name="reqId" value="@item.RequesterId" id="@counter-ReqUserId"></input>
+                                                    </td>
+                                                    <td>
+                                                        <input class="fakeInput" name="reqCourseName" value="@item.RequestedCourseName" id="@counter-ReqCourseName"></input>
+                                                    </td>
+                                                    <td>
+                                                        <input class="fakeInput" name="offeId" value="@item.OffererId" id="@counter-OffUserId"></input>
+                                                    </td>
+                                                    <td>
+                                                        <input class="fakeInput" name="offeCourseName" value="@item.OfferedCourseName" id="@counter-OffCourseName"></input>
+                                                    </td>
+                                                    <td>
+                                                        <select class ="form-control" name="operation" id="@counter-matches">
+                                                        @foreach (var item2 in @ViewBag.OperationalStatus) {
+                                                            <option value="@item2">@item2</option>
             }   
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="buttonOrt" onclick="updateMatches(@counter)">Actualizar</button>
-                                    </td>
-                                </tr>
-                                </form>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="buttonOrt">Actualizar</button>
+                                                    </td>
+                                                </tr>
+                                                </form>
     counter = counter + 1;
 }
 
@@ -136,7 +136,7 @@ const CreqCourseName = "-ReqCourseName";
 const CoffUserId = "-OffUserId";
 const CoffCourseName = "-OffCourseName";
 const Cmatches = "-matches";
-const URL = "https://localhost:7013/Requests"
+const URL = "https://localhost:7013/RequestsUpdate"
 
 function formDataIds(id) {
     let reqUserId = id + CreqUserId;
@@ -163,15 +163,14 @@ function formPayload(dataArray) {
 }
 
 function sendUpdates(payload) {
-    console.log(payload);
     let xhr = new XMLHttpRequest();
     xhr.open("POST", URL);
 
     xhr.setRequestHeader("Accept", "application/json");
     xhr.setRequestHeader("Content-Type", "application/json");
 
-    xhr.onload = () => console.log(xhr.responseText);
-    xhr.send(payload);
+    console.log(payload)
+    xhr.send(JSON.stringify(payload));
 }
 
 
@@ -179,9 +178,19 @@ function updateMatches(id) {
 
     var dataArray = formDataIds(id);
     var payload = formPayload(dataArray);
-    var a = JSON.stringify(payload);
-    console.log(a)
-    sendUpdates(a);
+
+    fetch(
+        URL, {
+            "method": "POST",
+            "headers": {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json"
+            },
+            "body": JSON.stringify({"is_valid" : true, "name" : "alex"})
+        }
+    ).then(
+        response => response.json()
+    ).catch(error => console.error(error))
     
 }
 
