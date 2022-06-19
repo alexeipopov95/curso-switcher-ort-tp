@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<CursoSwitcher.Models.RequestsModel>
 
 @{
-    var TITLE = "Solicitudes";
-    ViewData["Title"] = TITLE;
+    var MAIN_TITLE = "Solicitudes";
+    var SECCONDARY_TITLE = "Matchmaking";
+    ViewData["Title"] = MAIN_TITLE ;
 }
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-<h1>@TITLE</h1>
+<h1>@MAIN_TITLE </h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,7 +29,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Created_at)
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -57,8 +55,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }
@@ -67,7 +64,9 @@
 
 <br />
 
-<table class="table">
+<h1>@SECCONDARY_TITLE </h1>
+
+<table class="table" id="matchMakingTable">
     <thead>
         <tr>
             <th>
@@ -82,26 +81,118 @@
             <th>
                 Nombre del curso ofrecido
             </th>
+            <th>
+                Opciones
+            </th>
+            <th>
+                Acciones
+            </th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in @ViewBag.MatchList)
-{
-    <tr>
-        <td>
-             @item.RequesterId
-        </td>
-        <td>
-            @item.RequestedCourseName
-        </td>
-        <td>
-            @item.OffererId
-        </td>
-        <td>
-            @item.OfferedCourseName
-        </td>
-    </tr>
+
+
+<tbody>
+@{
+int counter = 0;
+
+                                                @foreach (var item in @ViewBag.MatchList)
+    {
+                                                <form action="RequestsUpdate" id="@counter" method="post">
+                                                <tr>
+                                                    <td>
+                                                        <input class="fakeInput" name="reqId" value="@item.RequesterId" id="@counter-ReqUserId"></input>
+                                                    </td>
+                                                    <td>
+                                                        <input class="fakeInput" name="reqCourseName" value="@item.RequestedCourseName" id="@counter-ReqCourseName"></input>
+                                                    </td>
+                                                    <td>
+                                                        <input class="fakeInput" name="offeId" value="@item.OffererId" id="@counter-OffUserId"></input>
+                                                    </td>
+                                                    <td>
+                                                        <input class="fakeInput" name="offeCourseName" value="@item.OfferedCourseName" id="@counter-OffCourseName"></input>
+                                                    </td>
+                                                    <td>
+                                                        <select class ="form-control" name="operation" id="@counter-matches">
+                                                        @foreach (var item2 in @ViewBag.OperationalStatus) {
+                                                            <option value="@item2">@item2</option>
+            }   
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="buttonOrt">Actualizar</button>
+                                                    </td>
+                                                </tr>
+                                                </form>
+    counter = counter + 1;
+}
 
 }
 </tbody>
 </table>
+
+<script>
+const CreqUserId = "-ReqUserId";
+const CreqCourseName = "-ReqCourseName";
+const CoffUserId = "-OffUserId";
+const CoffCourseName = "-OffCourseName";
+const Cmatches = "-matches";
+const URL = "https://localhost:7013/RequestsUpdate"
+
+function formDataIds(id) {
+    let reqUserId = id + CreqUserId;
+    let reqCourseName = id + CreqCourseName;
+    let offUserId = id + CoffUserId;
+    let offCourseName = id + CoffCourseName;
+    let operacion = id + Cmatches;
+    return [reqUserId, reqCourseName, offUserId, offCourseName, operacion]
+}
+
+function formPayload(dataArray) {
+    let reqUserId = document.getElementById(dataArray[0]).value
+    let reqCourseName = document.getElementById(dataArray[1]).value
+    let offUserId = document.getElementById(dataArray[2]).value
+    let offCourseName = document.getElementById(dataArray[3]).value
+    let operation = document.getElementById(dataArray[4]).value
+    return {
+        "requesterId" : reqUserId,
+        "requesterCourseName" : reqCourseName,
+        "offererId" : offUserId,
+        "offererCourseName" : offCourseName,
+        "operation" : operation,
+    }
+}
+
+function sendUpdates(payload) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", URL);
+
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    console.log(payload)
+    xhr.send(JSON.stringify(payload));
+}
+
+
+function updateMatches(id) {
+
+    var dataArray = formDataIds(id);
+    var payload = formPayload(dataArray);
+
+    fetch(
+        URL, {
+            "method": "POST",
+            "headers": {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json"
+            },
+            "body": JSON.stringify({"is_valid" : true, "name" : "alex"})
+        }
+    ).then(
+        response => response.json()
+    ).catch(error => console.error(error))
+    
+}
+
+
+</script>

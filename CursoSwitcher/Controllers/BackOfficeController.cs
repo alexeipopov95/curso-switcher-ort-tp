@@ -7,6 +7,7 @@ namespace CursoSwitcher.Controllers
     [Authorize(Roles = "ADMIN")]
     public class BackOfficeController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

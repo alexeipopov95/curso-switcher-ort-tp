@@ -7,7 +7,6 @@ namespace CursoSwitcher.Models
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Solicitante")]
         public int ProfileId { get; set; }
         public ProfileModel? Profile { get; set; }
         [Display(Name = "Curso solicitado")]
