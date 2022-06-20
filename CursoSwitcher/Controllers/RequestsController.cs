@@ -24,32 +24,39 @@ namespace CursoSwitcher.Controllers
         {
             List<RequestModelMatch> matchList = new List<RequestModelMatch>();
 
-            var requesters = _context.Requests.ToList();
-            var offerers = _context.Requests.ToList();
-            List<string> terminalStatusList = new List<string> {
-                RequestStatusConstantsList.APROBADA,
-                RequestStatusConstantsList.RECHAZADA,
-                RequestStatusConstantsList.ERROR,
-                RequestStatusConstantsList.CANCELADO
-            };
+            // obtengo listado completo de solicitudes
+            var users = _context.Requests.ToList();
 
+            // obtengo la lista de estados terminales los cuales no necesitaré para hacer matchmaking
+            List<string> terminalStatusList = new RequestStatusConstantsList().TERMINAL_STATUS_LIST;
 
-            foreach (var requester in requesters)
+            // comienzo con la primer iteración, aqui me enfoco en los que solicitan
+            foreach (var requester in users)
             {
-                foreach (var offerer in offerers)
+                // dentro de la primer iteración, itero nuevamente el conjunto de usuarios, pero esta vez para los que ofrecen.
+                foreach (var offerer in users)
                 {
+
+                    // me fijo que tanto el requester (solicitante) como el offerer (ofrecedor) el estado de su solicitud no esté dentro
+                    // de la lista de estados terminales.
                     if (!terminalStatusList.Contains(requester.status) && !terminalStatusList.Contains(offerer.status))
                     {
+
+                        // Aqui me fijo que el ID del curso solicitado por el solicitante coincida con el ID del curso ofrecido por el ofrecedor.
                         if (requester.RequestedCourseId == offerer.OfferedCourseId)
                         {
+
+                            // Me aseguro de que no exista actualmente un match para los mismos usuarios con los mismos cursos para que no se dupliquen.
                             if (!matchList.Any(o =>
                             o.OffererId.Equals(requester.ProfileId)
                             && o.RequesterId.Equals(offerer.ProfileId)
                             ))
-                            {
+                            {   
+                                // Si se cumple, entonces obtengo los nombres de los cursos (solicitado y ofrecido) ex, 11OEM, 12OEM...
                                 var requesterCourseName = _context.Courses.FirstOrDefault(o => o.Id.Equals(requester.RequestedCourseId)).Name;
                                 var offererCourseName = _context.Courses.FirstOrDefault(o => o.Id.Equals(requester.OfferedCourseId)).Name;
 
+                                // Creo un objeto nuevo de tipo RequestModelMatch y lo agrego a la matchList
                                 RequestModelMatch obj = new RequestModelMatch(
                                     requester.RequestedCourseId,
                                     requester.OfferedCourseId,
@@ -58,7 +65,7 @@ namespace CursoSwitcher.Controllers
                                     requesterCourseName,
                                     offererCourseName
                                 );
-                                matchList.Add(obj);
+                                matchList.Add(obj); // agrego (?
 
                             }
                         }
@@ -66,7 +73,7 @@ namespace CursoSwitcher.Controllers
                 }
             }
 
-
+            // retorno la lista con los nuevos objetos de tipo RequestModelMatch
             return matchList;
         }
 
@@ -76,6 +83,7 @@ namespace CursoSwitcher.Controllers
         {
             List<string> operationalLists = new RequestStatusConstantsList().getOperationalList();
             var modelContextManager = _context.Requests.Include(r => r.OfferedCourse).Include(r => r.Profile).Include(r => r.RequestedCourse);
+            // La lista de matchmakings la mando al contexto como variable de entorno en la ViewBag.
             ViewBag.MatchList = generateMatchList();
             ViewBag.OperationalStatus = operationalLists;
             return View(await modelContextManager.ToListAsync());

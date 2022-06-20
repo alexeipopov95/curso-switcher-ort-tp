@@ -17,7 +17,7 @@ namespace CursoSwitcher.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Requests");
         }
 
         [HttpPost]
@@ -37,10 +37,8 @@ namespace CursoSwitcher.Controllers
 
             firstUserRequest.status = operation;
             seccondUserRequest.status = operation;
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction("Index", "Requests");
         }
     }
 }
-
-// 4	12TP	Taller de Programación 1°2°

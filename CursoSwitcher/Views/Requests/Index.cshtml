@@ -73,10 +73,10 @@
                 ID del solicitante
             </th>
             <th>
-                Nombre del curso solicitado
+                ID del candidato
             </th>
             <th>
-                Id del ofrecedor
+                Nombre del curso solicitado
             </th>
             <th>
                 Nombre del curso ofrecido
@@ -95,35 +95,35 @@
 @{
 int counter = 0;
 
-                                                @foreach (var item in @ViewBag.MatchList)
+     @foreach (var item in @ViewBag.MatchList)
     {
-                                                <form action="RequestsUpdate" id="@counter" method="post">
-                                                <tr>
-                                                    <td>
-                                                        <input class="fakeInput" name="reqId" value="@item.RequesterId" id="@counter-ReqUserId"></input>
-                                                    </td>
-                                                    <td>
-                                                        <input class="fakeInput" name="reqCourseName" value="@item.RequestedCourseName" id="@counter-ReqCourseName"></input>
-                                                    </td>
-                                                    <td>
-                                                        <input class="fakeInput" name="offeId" value="@item.OffererId" id="@counter-OffUserId"></input>
-                                                    </td>
-                                                    <td>
-                                                        <input class="fakeInput" name="offeCourseName" value="@item.OfferedCourseName" id="@counter-OffCourseName"></input>
-                                                    </td>
-                                                    <td>
-                                                        <select class ="form-control" name="operation" id="@counter-matches">
-                                                        @foreach (var item2 in @ViewBag.OperationalStatus) {
-                                                            <option value="@item2">@item2</option>
+        <form action="RequestsUpdate" id="@counter" method="post">
+        <tr>
+            <td>
+                <input class="fakeInput" name="reqId" value="@item.RequesterId" id="@counter-ReqUserId"></input>
+            </td>
+            <td>
+                <input class="fakeInput" name="offeId" value="@item.OffererId" id="@counter-OffUserId"></input>
+            </td>
+            <td>
+                <input class="fakeInput" name="reqCourseName" value="@item.RequestedCourseName" id="@counter-ReqCourseName"></input>
+            </td>
+            <td>
+                <input class="fakeInput" name="offeCourseName" value="@item.OfferedCourseName" id="@counter-OffCourseName"></input>
+            </td>
+            <td>
+                <select class ="form-control" name="operation" id="@counter-matches">
+                @foreach (var item2 in @ViewBag.OperationalStatus) {
+                    <option value="@item2">@item2</option>
             }   
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <button type="submit" class="buttonOrt">Actualizar</button>
-                                                    </td>
-                                                </tr>
-                                                </form>
-    counter = counter + 1;
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" class="buttonOrt">Actualizar</button>
+                </td>
+            </tr>
+            </form>
+counter = counter + 1;
 }
 
 }

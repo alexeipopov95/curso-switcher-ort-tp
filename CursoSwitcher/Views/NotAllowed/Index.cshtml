@@ -3,12 +3,14 @@
 *@
 @{
 }
-<h1>404</h1>
-<img src="C:\Users\Federico\Documents\GitHub\curso-switcher-ort-tp\CursoSwitcher\wwwroot\statics\404NOT_FOUND.png"">
-
+<div style="text-align:center">
+<img src="~/statics/404NOT_FOUND.png" style="width:850px; height:auto; text-align:center;">
+<br />
 @if(User.Identity.IsAuthenticated) 
 {
     <a asp-area="" asp-controller="Dashboard" asp-action="Index">Volver a mis solicitudes.</a>
 } else {
     <a asp-area="" asp-controller="Login" asp-action="Index">Iniciar sesión.</a>
 }
+
+</div>
