@@ -51,8 +51,6 @@ namespace CursoSwitcher.Models
                 RequesterId = requesterId;
                 RequestedCourseName = requestedCourseName;
                 OfferedCourseName = offeredCourseName;
-
-
             }
         }
 

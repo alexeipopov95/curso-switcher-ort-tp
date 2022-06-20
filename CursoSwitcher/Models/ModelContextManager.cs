@@ -4,6 +4,7 @@ namespace CursoSwitcher.Models
 {
     public class ModelContextManager: DbContext
     {
+        // Creamos las propiedades de nuestro manager (es como accederemos a cada tabla en nuestro código)
         public DbSet<CampusModel> Campus { get; set; }
         public DbSet<CareerModel> Careers { get; set; }
         public DbSet<CoursesModel> Courses { get; set; }
@@ -11,9 +12,11 @@ namespace CursoSwitcher.Models
         public DbSet<RequestsModel> Requests { get; set; }
 
 
+        // Le decimos a donde tiene que ir a buscar la base de datos.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite(String.Format(@"Data Source={0}\..\database.db", Directory.GetCurrentDirectory()));
 
+        // ¿Como ingresamos información al momento de inicializar la base de datos? - Sobreescribimos el método OnModelCreating.
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<CampusModel>().HasData(
 
