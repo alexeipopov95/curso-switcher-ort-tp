@@ -115,7 +115,7 @@ namespace CursoSwitcher.Migrations
                     ProfileId = table.Column<int>(type: "INTEGER", nullable: false),
                     RequestedCourseId = table.Column<int>(type: "INTEGER", nullable: false),
                     OfferedCourseId = table.Column<int>(type: "INTEGER", nullable: false),
-                    status = table.Column<string>(type: "TEXT", nullable: false),
+                    status = table.Column<string>(type: "TEXT", nullable: true),
                     Visible_id = table.Column<string>(type: "TEXT", nullable: false),
                     Created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Updated_at = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -146,102 +146,102 @@ namespace CursoSwitcher.Migrations
             migrationBuilder.InsertData(
                 table: "Campus",
                 columns: new[] { "Id", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5771), "Sede Almagro\nDirección: Yatay 240\nProvincia: Buenos Aires\nPais: Argentina\nTeléfono: 4958-9000", "Yatay", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5777), "ccfb9556-63a6-4767-8079-ced173cfc78c" });
+                values: new object[] { 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4019), "Sede Almagro\nDirección: Yatay 240\nProvincia: Buenos Aires\nPais: Argentina\nTeléfono: 4958-9000", "Yatay", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4026), "c912a0d6-6602-4efe-8482-e175fa3addfb" });
 
             migrationBuilder.InsertData(
                 table: "Campus",
                 columns: new[] { "Id", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 2, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5781), "Sede Belgrano\nDirección: Av. del Libertador 6796\nProvincia: Buenos Aires\nPais: Argentina\nTeléfono: 4789-6500 ", "Belgrano", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5782), "417810b9-5aaf-4b4f-a0be-4331a5854360" });
+                values: new object[] { 2, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4030), "Sede Belgrano\nDirección: Av. del Libertador 6796\nProvincia: Buenos Aires\nPais: Argentina\nTeléfono: 4789-6500 ", "Belgrano", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4030), "3c48b517-a750-4d4f-b23f-311f31ea9836" });
 
             migrationBuilder.InsertData(
                 table: "Careers",
                 columns: new[] { "Id", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5849), "Duración: 2 años.\nTitulo Otorgado: Analista de Sistemas.", "Analista de Sistemas", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5849), "ba054c3e-6746-45da-a4ec-375e409ec118" });
+                values: new object[] { 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4126), "Duración: 2 años.\nTitulo Otorgado: Analista de Sistemas.", "Analista de Sistemas", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4126), "bcbddcc7-d1d4-4623-bd14-02140c8d850a" });
 
             migrationBuilder.InsertData(
                 table: "Careers",
                 columns: new[] { "Id", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 2, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5852), "Duración: 3 años.\nTitulo Otorgado: Técnico Superior en Química y Biotecnología.", "Biotecnología", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5852), "5778c9c4-b3d4-41a3-b912-63867d2e21cd" });
+                values: new object[] { 2, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4129), "Duración: 3 años.\nTitulo Otorgado: Técnico Superior en Química y Biotecnología.", "Biotecnología", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4129), "1e60f890-987a-4913-a0ad-ade79856f233" });
 
             migrationBuilder.InsertData(
                 table: "Careers",
                 columns: new[] { "Id", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 3, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5854), "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Producción Musical.", "Sonido y Producción Musical", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5854), "8daad9f2-9890-4f03-990e-86a358a25d55" });
+                values: new object[] { 3, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4131), "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Producción Musical.", "Sonido y Producción Musical", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4131), "ab22a5e1-4963-402a-aa1c-44651c940b7a" });
 
             migrationBuilder.InsertData(
                 table: "Careers",
                 columns: new[] { "Id", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 4, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5856), "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Diseño Gráfico Digital.", "Diseño Digital", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5856), "d6d7f230-5755-47c9-a89c-02cf995a0589" });
+                values: new object[] { 4, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4134), "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Diseño Gráfico Digital.", "Diseño Digital", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4134), "6548f49d-270a-4eef-814b-3f9bd45b6f72" });
 
             migrationBuilder.InsertData(
                 table: "Careers",
                 columns: new[] { "Id", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 5, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5858), "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Diseño Industrial.", "Diseño Industrial", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5858), "b31ba083-fbfd-4443-83ad-9499af27ae89" });
+                values: new object[] { 5, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4136), "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Diseño Industrial.", "Diseño Industrial", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4136), "dc25a104-0ee4-4e1f-b8df-1b7e1daad926" });
 
             migrationBuilder.InsertData(
                 table: "Profiles",
                 columns: new[] { "Id", "CampusId", "CareerId", "CourseId", "Created_at", "Dni", "Email", "Is_moderator", "Last_name", "Name", "Password", "Updated_at", "Visible_id" },
-                values: new object[] { 1, null, null, null, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5911), "ADMIN", "secretaria-ites1@ort.edu.ar", true, "ADMIN", "ADMIN", "ADMIN", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5912), "91429bd1-710c-4fcf-8bc6-c22825b19f8b" });
+                values: new object[] { 1, null, null, null, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4202), "ADMIN", "secretaria-ites1@ort.edu.ar", true, "ADMIN", "ADMIN", "ADMIN", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4203), "9965a503-2d9c-45e1-97fb-2fd137346c1b" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 1, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5870), "Organización Empresarial 1°1°", "11OEM", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5870), "a6b9c623-b8d8-4b22-8838-1c1fe3413e2d" });
+                values: new object[] { 1, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4152), "Organización Empresarial 1°1°", "11OEM", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4153), "72f39a12-a3d1-4582-8c76-9b583ebd8a99" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 2, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5875), "Organización Empresarial 1°2°", "12OEM", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5875), "dd5a26fb-4fcd-45c4-b527-153417ba57c3" });
+                values: new object[] { 2, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4158), "Organización Empresarial 1°2°", "12OEM", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4158), "2484bf46-e683-4361-8ae0-72e054d63884" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 3, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5878), "Taller de Programación 1°1°", "11TP", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5878), "4e7baac1-bd7a-47b1-b002-cba851099950" });
+                values: new object[] { 3, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4161), "Taller de Programación 1°1°", "11TP", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4161), "15e9cbde-c156-424c-9dba-6623c7e8e1b1" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 4, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5880), "Taller de Programación 1°2°", "12TP", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5880), "113c69cb-59d1-4c0e-ab51-2258995d8584" });
+                values: new object[] { 4, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4163), "Taller de Programación 1°2°", "12TP", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4163), "e93d8635-6421-4767-b0dd-f91eba6ad1f1" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 5, 2, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5882), "Biotecnología 3°1°", "31BT", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5882), "fd345f1b-e4d5-4390-a08d-17e2418964d4" });
+                values: new object[] { 5, 2, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4166), "Biotecnología 3°1°", "31BT", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4166), "0dea8410-8b8b-4a22-9f94-d58f148599f7" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 6, 2, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5884), "Biotecnología 3°2°", "32BT", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5884), "65643569-12c5-46aa-8521-97b4352f0960" });
+                values: new object[] { 6, 2, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4168), "Biotecnología 3°2°", "32BT", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4168), "5dab8598-3e1e-440a-a97d-edf19248e831" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 7, 2, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5886), "Farmacoquímica 2°1°", "21FA", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5886), "60f9f5ad-d3ae-41c0-82b3-c602990302ed" });
+                values: new object[] { 7, 2, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4170), "Farmacoquímica 2°1°", "21FA", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4170), "7993a22c-15f9-42d9-94c0-69e1fbd42498" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 8, 2, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5888), "Farmacoquímica 2°2°", "22FA", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5888), "1f32dea7-96f6-400f-85af-a9fae454a017" });
+                values: new object[] { 8, 2, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4172), "Farmacoquímica 2°2°", "22FA", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4172), "3d5e230d-eacb-4003-b308-9b59d544d6b0" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 9, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5890), "Bases de datos 3°1°", "31BD", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5891), "7e708df4-b54d-41a3-bb66-59428e9bf2f6" });
+                values: new object[] { 9, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4174), "Bases de datos 3°1°", "31BD", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4175), "0a8546f1-7985-43a9-bfce-a59957751e66" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 10, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5894), "Bases de datos 3°2°", "32BD", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5894), "083c264a-e0f6-429d-bb13-7b599a368a80" });
+                values: new object[] { 10, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4178), "Bases de datos 3°2°", "32BD", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4179), "d7be292f-6cc2-44e9-8db0-d86dd23c417c" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 11, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5896), "Programación 2°1°", "21PR", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5897), "e7669ab8-505b-4461-ba47-8b7fcfd6def8" });
+                values: new object[] { 11, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4181), "Programación 2°1°", "21PR", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4181), "614466e2-b5ba-45c4-971c-0392cd3fdee2" });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CareerId", "Created_at", "Description", "Name", "Updated_at", "Visible_id" },
-                values: new object[] { 12, 1, new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5898), "Programación 2°2°", "22PR", new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5899), "fe506d54-afdb-4bb4-b758-41dbda87b354" });
+                values: new object[] { 12, 1, new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4183), "Programación 2°2°", "22PR", new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4183), "47654e25-1321-45fe-9534-6799a4ceebfe" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_CareerId",
