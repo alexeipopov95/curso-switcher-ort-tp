@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CursoSwitcher.Migrations
 {
     [DbContext(typeof(ModelContextManager))]
-    [Migration("20220610010507_1")]
+    [Migration("20220622220125_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,20 +50,20 @@ namespace CursoSwitcher.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5771),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4019),
                             Description = "Sede Almagro\nDirección: Yatay 240\nProvincia: Buenos Aires\nPais: Argentina\nTeléfono: 4958-9000",
                             Name = "Yatay",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5777),
-                            Visible_id = "ccfb9556-63a6-4767-8079-ced173cfc78c"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4026),
+                            Visible_id = "c912a0d6-6602-4efe-8482-e175fa3addfb"
                         },
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5781),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4030),
                             Description = "Sede Belgrano\nDirección: Av. del Libertador 6796\nProvincia: Buenos Aires\nPais: Argentina\nTeléfono: 4789-6500 ",
                             Name = "Belgrano",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5782),
-                            Visible_id = "417810b9-5aaf-4b4f-a0be-4331a5854360"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4030),
+                            Visible_id = "3c48b517-a750-4d4f-b23f-311f31ea9836"
                         });
                 });
 
@@ -98,47 +98,47 @@ namespace CursoSwitcher.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5849),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4126),
                             Description = "Duración: 2 años.\nTitulo Otorgado: Analista de Sistemas.",
                             Name = "Analista de Sistemas",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5849),
-                            Visible_id = "ba054c3e-6746-45da-a4ec-375e409ec118"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4126),
+                            Visible_id = "bcbddcc7-d1d4-4623-bd14-02140c8d850a"
                         },
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5852),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4129),
                             Description = "Duración: 3 años.\nTitulo Otorgado: Técnico Superior en Química y Biotecnología.",
                             Name = "Biotecnología",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5852),
-                            Visible_id = "5778c9c4-b3d4-41a3-b912-63867d2e21cd"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4129),
+                            Visible_id = "1e60f890-987a-4913-a0ad-ade79856f233"
                         },
                         new
                         {
                             Id = 3,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5854),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4131),
                             Description = "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Producción Musical.",
                             Name = "Sonido y Producción Musical",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5854),
-                            Visible_id = "8daad9f2-9890-4f03-990e-86a358a25d55"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4131),
+                            Visible_id = "ab22a5e1-4963-402a-aa1c-44651c940b7a"
                         },
                         new
                         {
                             Id = 4,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5856),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4134),
                             Description = "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Diseño Gráfico Digital.",
                             Name = "Diseño Digital",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5856),
-                            Visible_id = "d6d7f230-5755-47c9-a89c-02cf995a0589"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4134),
+                            Visible_id = "6548f49d-270a-4eef-814b-3f9bd45b6f72"
                         },
                         new
                         {
                             Id = 5,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5858),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4136),
                             Description = "Duración: 2 años.\nTitulo Otorgado: Técnico Superior en Diseño Industrial.",
                             Name = "Diseño Industrial",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5858),
-                            Visible_id = "b31ba083-fbfd-4443-83ad-9499af27ae89"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4136),
+                            Visible_id = "dc25a104-0ee4-4e1f-b8df-1b7e1daad926"
                         });
                 });
 
@@ -179,121 +179,121 @@ namespace CursoSwitcher.Migrations
                         {
                             Id = 1,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5870),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4152),
                             Description = "Organización Empresarial 1°1°",
                             Name = "11OEM",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5870),
-                            Visible_id = "a6b9c623-b8d8-4b22-8838-1c1fe3413e2d"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4153),
+                            Visible_id = "72f39a12-a3d1-4582-8c76-9b583ebd8a99"
                         },
                         new
                         {
                             Id = 2,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5875),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4158),
                             Description = "Organización Empresarial 1°2°",
                             Name = "12OEM",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5875),
-                            Visible_id = "dd5a26fb-4fcd-45c4-b527-153417ba57c3"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4158),
+                            Visible_id = "2484bf46-e683-4361-8ae0-72e054d63884"
                         },
                         new
                         {
                             Id = 3,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5878),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4161),
                             Description = "Taller de Programación 1°1°",
                             Name = "11TP",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5878),
-                            Visible_id = "4e7baac1-bd7a-47b1-b002-cba851099950"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4161),
+                            Visible_id = "15e9cbde-c156-424c-9dba-6623c7e8e1b1"
                         },
                         new
                         {
                             Id = 4,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5880),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4163),
                             Description = "Taller de Programación 1°2°",
                             Name = "12TP",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5880),
-                            Visible_id = "113c69cb-59d1-4c0e-ab51-2258995d8584"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4163),
+                            Visible_id = "e93d8635-6421-4767-b0dd-f91eba6ad1f1"
                         },
                         new
                         {
                             Id = 5,
                             CareerId = 2,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5882),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4166),
                             Description = "Biotecnología 3°1°",
                             Name = "31BT",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5882),
-                            Visible_id = "fd345f1b-e4d5-4390-a08d-17e2418964d4"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4166),
+                            Visible_id = "0dea8410-8b8b-4a22-9f94-d58f148599f7"
                         },
                         new
                         {
                             Id = 6,
                             CareerId = 2,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5884),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4168),
                             Description = "Biotecnología 3°2°",
                             Name = "32BT",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5884),
-                            Visible_id = "65643569-12c5-46aa-8521-97b4352f0960"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4168),
+                            Visible_id = "5dab8598-3e1e-440a-a97d-edf19248e831"
                         },
                         new
                         {
                             Id = 7,
                             CareerId = 2,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5886),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4170),
                             Description = "Farmacoquímica 2°1°",
                             Name = "21FA",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5886),
-                            Visible_id = "60f9f5ad-d3ae-41c0-82b3-c602990302ed"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4170),
+                            Visible_id = "7993a22c-15f9-42d9-94c0-69e1fbd42498"
                         },
                         new
                         {
                             Id = 8,
                             CareerId = 2,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5888),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4172),
                             Description = "Farmacoquímica 2°2°",
                             Name = "22FA",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5888),
-                            Visible_id = "1f32dea7-96f6-400f-85af-a9fae454a017"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4172),
+                            Visible_id = "3d5e230d-eacb-4003-b308-9b59d544d6b0"
                         },
                         new
                         {
                             Id = 9,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5890),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4174),
                             Description = "Bases de datos 3°1°",
                             Name = "31BD",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5891),
-                            Visible_id = "7e708df4-b54d-41a3-bb66-59428e9bf2f6"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4175),
+                            Visible_id = "0a8546f1-7985-43a9-bfce-a59957751e66"
                         },
                         new
                         {
                             Id = 10,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5894),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4178),
                             Description = "Bases de datos 3°2°",
                             Name = "32BD",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5894),
-                            Visible_id = "083c264a-e0f6-429d-bb13-7b599a368a80"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4179),
+                            Visible_id = "d7be292f-6cc2-44e9-8db0-d86dd23c417c"
                         },
                         new
                         {
                             Id = 11,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5896),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4181),
                             Description = "Programación 2°1°",
                             Name = "21PR",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5897),
-                            Visible_id = "e7669ab8-505b-4461-ba47-8b7fcfd6def8"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4181),
+                            Visible_id = "614466e2-b5ba-45c4-971c-0392cd3fdee2"
                         },
                         new
                         {
                             Id = 12,
                             CareerId = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5898),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4183),
                             Description = "Programación 2°2°",
                             Name = "22PR",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5899),
-                            Visible_id = "fe506d54-afdb-4bb4-b758-41dbda87b354"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4183),
+                            Visible_id = "47654e25-1321-45fe-9534-6799a4ceebfe"
                         });
                 });
 
@@ -359,15 +359,15 @@ namespace CursoSwitcher.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5911),
+                            Created_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4202),
                             Dni = "ADMIN",
                             Email = "secretaria-ites1@ort.edu.ar",
                             Is_moderator = true,
                             Last_name = "ADMIN",
                             Name = "ADMIN",
                             Password = "ADMIN",
-                            Updated_at = new DateTime(2022, 6, 9, 22, 5, 6, 872, DateTimeKind.Local).AddTicks(5912),
-                            Visible_id = "91429bd1-710c-4fcf-8bc6-c22825b19f8b"
+                            Updated_at = new DateTime(2022, 6, 22, 19, 1, 24, 913, DateTimeKind.Local).AddTicks(4203),
+                            Visible_id = "9965a503-2d9c-45e1-97fb-2fd137346c1b"
                         });
                 });
 
@@ -397,7 +397,6 @@ namespace CursoSwitcher.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("status")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
