@@ -1,7 +1,10 @@
 ﻿<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+@{
+    var STATUS_PIE_CHART_TITLE = "Solicitudes según su estado";
+    var REQUEST_FREQUENCY_TITLE = "Frecuencia de solicitudes";
+}
 <h1>BackOffice - Course Exchanger</h1>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" crossorigin="anonymous"></script>
 <hr />
 <div class="container-fluid">
   <div class="row">
@@ -20,5 +23,109 @@
     <div class="col-sm buttonOrt">
       <a class="links" asp-area="" asp-controller="Requests" asp-action="Index">Administrar Peticiones</a>
     </div>
+
+  <h1>@STATUS_PIE_CHART_TITLE</h1>
+<canvas id="pie_status_chart" width="400" height="400"></canvas>
+<br />
+
+  <h1>@REQUEST_FREQUENCY_TITLE</h1>
+<canvas id="bar_frequency_chart" width="400" height="400"></canvas>  
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+const ctx = document.getElementById('pie_status_chart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ["Aprobada", "Rechazada", "Pendiente", "Error"],
+        datasets: [{
+            label: 'Amount of requests with different status',
+            data: [@ViewBag.RequestsByStatusAceptada, @ViewBag.RequestsByStatusRechazada, @ViewBag.RequestsByStatusPendiente, @ViewBag.RequestsByStatusError ],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 0, 0, 0.2)',
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 0, 0, 1)',
+            ],
+            borderWidth: 3
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+const ctx2 = document.getElementById('bar_frequency_chart').getContext('2d');
+const dias = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
+const myChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: dias,
+        datasets: [{
+            label: "Julio",
+            data: [
+                @ViewBag.FrequencyByDayDuringTheMonth["Domingo"],
+                @ViewBag.FrequencyByDayDuringTheMonth["Lunes"],
+                @ViewBag.FrequencyByDayDuringTheMonth["Martes"],
+                @ViewBag.FrequencyByDayDuringTheMonth["Miercoles"],
+                @ViewBag.FrequencyByDayDuringTheMonth["Jueves"],
+                @ViewBag.FrequencyByDayDuringTheMonth["Viernes"],
+                @ViewBag.FrequencyByDayDuringTheMonth["Sabado"],
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 152, 92, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(153, 152, 92, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+
+<br />
+
 </div>

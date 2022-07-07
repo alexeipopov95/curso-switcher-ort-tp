@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using CursoSwitcher.Models;
 using Microsoft.AspNetCore.Authorization;
 using CursoSwitcher.Commons;
-using System.Diagnostics;
 
 namespace CursoSwitcher.Controllers
 {
