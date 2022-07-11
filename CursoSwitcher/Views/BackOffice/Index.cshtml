@@ -21,7 +21,19 @@
       <a class="links" asp-area="" asp-controller="Profile" asp-action="Index">Administrar Perfiles</a>
     </div>
     <div class="col-sm buttonOrt">
-      <a class="links" asp-area="" asp-controller="Requests" asp-action="Index">Administrar Peticiones</a>
+      <a class="links" asp-area="" asp-controller="Requests" asp-action="Index">
+          Administrar Peticiones
+          @if (@ViewBag.RequestsByStatusPendiente > 0)
+          {
+                <span class="badge badge-warning" data-toggle="tooltip" title="Solicitudes pendientes">@ViewBag.RequestsByStatusPendiente</span>   
+          } else if ((@ViewBag.RequestsByStatusPendiente > 5))
+          {
+                <span class="badge badge-danger" data-toggle="tooltip" title="Solicitudes pendientes">@ViewBag.RequestsByStatusPendiente</span>
+          } else
+          {
+                <span class="badge badge-light" data-toggle="tooltip" title="Solicitudes pendientes">@ViewBag.RequestsByStatusPendiente</span>    
+          }
+            </a>
     </div>
 
   <h1>@STATUS_PIE_CHART_TITLE</h1>
@@ -31,16 +43,6 @@
   <h1>@REQUEST_FREQUENCY_TITLE</h1>
 <canvas id="bar_frequency_chart" width="400" height="400"></canvas>  
   </div>
-
-
-
-
-
-
-
-
-
-
 
 
 

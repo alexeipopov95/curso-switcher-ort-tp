@@ -81,7 +81,6 @@ namespace CursoSwitcher.Controllers
             return frequencyByDaysMap;
         }
 
-
         [HttpGet]
         public IActionResult Index()
         {
