@@ -142,9 +142,13 @@ namespace CursoSwitcher.Controllers
                 return Problem("Entity set 'ModelContextManager.Campus'  is null.");
             }
             var campusModel = await _context.Campus.FindAsync(id);
-            if (campusModel != null)
+            var hasProfileRelated = _context.Profiles.Any(p => p.CampusId == id); 
+            if (campusModel != null && !hasProfileRelated)
             {
                 _context.Campus.Remove(campusModel);
+            } else
+            {
+                TempData["CannotDelete"] = "No puede borrar una sede con alumnos asociadas a ella.";
             }
             
             await _context.SaveChangesAsync();

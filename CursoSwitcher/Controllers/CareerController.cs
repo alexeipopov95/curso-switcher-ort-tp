@@ -142,11 +142,17 @@ namespace CursoSwitcher.Controllers
                 return Problem("Entity set 'ModelContextManager.Careers'  is null.");
             }
             var careerModel = await _context.Careers.FindAsync(id);
-            if (careerModel != null)
+            var hasProfileRelated = _context.Profiles.Any(p => p.CampusId == id);
+            var hasCoursesRelated = _context.Courses.Any(c => c.CareerId == id);
+            if (careerModel != null && !(hasProfileRelated || hasCoursesRelated))
             {
                 _context.Careers.Remove(careerModel);
             }
-            
+            else
+            {
+                TempData["CannotDelete"] = "No puede borrar una carrera con alumnos o cursos asociadas a ella.";
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

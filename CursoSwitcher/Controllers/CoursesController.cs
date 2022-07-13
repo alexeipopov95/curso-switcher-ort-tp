@@ -152,9 +152,13 @@ namespace CursoSwitcher.Controllers
                 return Problem("Entity set 'ModelContextManager.Courses'  is null.");
             }
             var coursesModel = await _context.Courses.FindAsync(id);
-            if (coursesModel != null)
+            var hasProfileRelated = _context.Profiles.Any(p => p.CourseId == id);
+            if (coursesModel != null && !hasProfileRelated)
             {
                 _context.Courses.Remove(coursesModel);
+            } else
+            {
+                TempData["CannotDelete"] = "No puede borrar un curso con alumnos inscriptos en ella.";
             }
             
             await _context.SaveChangesAsync();
